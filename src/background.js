@@ -84,6 +84,7 @@ app.on("web-contents-created", (e, webContents) => {
     event.preventDefault();
     // 返回对应的url
     // 如果视频返回解析视频url，反之返回正常url
+    console.log(url, videoConfig.rule, url.indexOf(videoConfig.rule));
     ipcEvent.sender.send("hapv", {
       method: "open/page",
       data:

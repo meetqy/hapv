@@ -3,7 +3,12 @@
     <el-container>
       <el-header>
         <div class="control">
-          <i class="el-icon-refresh-right control-active"></i>
+          <i
+            title="首页"
+            class="el-icon-s-home control-active"
+            @click="videoUrl = ''"
+          ></i>
+          <i title="刷新" class="el-icon-refresh-right control-active"></i>
         </div>
         <div class="opt">
           <div class="platform">
@@ -39,6 +44,7 @@
       </el-header>
       <el-main>
         <iframe v-if="videoUrl" :src="videoUrl" frameborder="0"></iframe>
+        <!-- 首页 -->
         <iframe
           v-else
           :src="platform[platformValue].site"
@@ -50,7 +56,7 @@
 </template>
 
 <script>
-import config from "./config";
+import config from "./config/index";
 export default {
   name: "app",
   data() {
@@ -63,7 +69,6 @@ export default {
     };
   },
   mounted() {
-    console.log(config, "-----");
     let { platform, platformValue, analysis, analysisValue } = this;
     this.$ipc.on("hapv", (event, arg) => {
       let method = arg.method.replace("/", "_");
@@ -82,6 +87,13 @@ export default {
   methods: {
     open_page({ data }) {
       this.videoUrl = data;
+    },
+
+    goback() {
+      this.videoUrl = "";
+      // if(this.videoUrl) {
+      //   this.
+      // }
     },
 
     changePlatform(index) {
@@ -131,9 +143,10 @@ export default {
     i {
       display: inline-flex;
       align-items: center;
+      width: 40px;
       height: 40px;
       font-weight: bold;
-      cursor: pointer;
+      font-size: 20px;
     }
   }
   .control-active {
