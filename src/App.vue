@@ -114,9 +114,10 @@ export default {
   color: #909399;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  // justify-content: space-between;
 
   .opt {
+    margin-left: 40px;
     display: flex;
     .line {
       margin-left: 20px;
@@ -124,6 +125,8 @@ export default {
   }
 
   .control {
+    // width: 366px;
+    // text-align: left;
     i {
       display: inline-flex;
       align-items: center;
