@@ -10,7 +10,17 @@ const isDevelopment = process.env.NODE_ENV !== "production";
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win;
-let ipcEvent;
+let ipcEvent; // ipc监听回调返回的event，便于全局使用
+/*
+当前的视频信息和解析地址
+{
+  site: "https://v.qq.com",
+  name: "腾讯视频",
+  rule: "https://v.qq.com/x/cover/",
+  analysis: 'xxxxx'
+};
+*/
+let videoConfig;
 
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
@@ -25,6 +35,7 @@ function createWindow() {
     webPreferences: {
       nodeIntegration: true,
     },
+    titleBarStyle: "hidden",
   });
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {
@@ -60,38 +71,24 @@ app.on("activate", () => {
   }
 });
 
-ipcMain.once("hapiv", (event, arg) => {
-  console.log(arg); // prints "ping"
-  // event.returnValue = "pong"; // 同步返回
+ipcMain.once("hapv", (event, arg) => {
+  // console.log(arg); // prints "ping"
+  let method = arg.method.replace("/", "_");
+  ipcMethod[method](arg);
   ipcEvent = event;
 });
-
-/* <select
-  class="url-c url-text"
-  title="如发现视频无法正常播放请尝试更换视频线路！"
-  id="jk"
->
-  <option value="http://okjx.cc/?url=" selected="">
-    默认一{" "}
-  </option>
-  <option value="https://jiexi.380k.com/?url=">推荐二 </option>
-  <option value="https://jx.99yyw.com/99/?url=">万能线路一 </option>
-  <option value="http://jx.618g.com/?url=">线路四 </option>
-  <option value="http://jx.598110.com/?url=">万能线路二 </option>
-  <option value="https://cdn.yangju.vip/k/?url=">线路六 </option>
-  <option value="https://j.wfss100.com/?url=">万能线路三 </option>
-  <option value="https://vip.bljiex.com/?v=">万能线路四 </option>
-  <option value="https://cs.drgxj.com/?url=">线路七 </option>
-  <option value="https://vip.fxw.la/m3u8/index.php?url=">m3u8解析 </option>
-  <option value="">直链 </option>
-</select>; */
 
 // 拦截iframe中的点击事件
 app.on("web-contents-created", (e, webContents) => {
   webContents.on("new-window", (event, url) => {
     event.preventDefault();
-    console.log(url);
-    ipcEvent.sender.send("hapiv", "https://jx.99yyw.com/99/?url=" + url);
+    // 返回对应的url
+    // 如果视频返回解析视频url，反之返回正常url
+    ipcEvent.sender.send("hapv", {
+      method: "open/page",
+      data:
+        url.indexOf(videoConfig.rule) > -1 ? videoConfig.analysis + url : url,
+    });
 
     // win.webContents.loadURL(url);
     // shell.openExternal(url);
@@ -132,3 +129,10 @@ if (isDevelopment) {
     });
   }
 }
+
+// ipc模拟接口对应方法
+let ipcMethod = {
+  video_config(arg) {
+    videoConfig = arg.data;
+  },
+};

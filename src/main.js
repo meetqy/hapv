@@ -6,6 +6,7 @@ import "./plugins/element.js";
 import { ipcRenderer } from "electron";
 
 Vue.prototype.$ipc = ipcRenderer;
+
 Vue.config.productionTip = false;
 
 new Vue({
