@@ -1,4 +1,4 @@
-exports.platform = [
+export default [
   {
     site: "https://v.qq.com",
     name: "腾讯视频",
@@ -9,9 +9,4 @@ exports.platform = [
   //   name: "爱奇艺",
   //   rule: "https://www.iqiyi.com/v_19rykosm14.html",
   // },
-];
-
-exports.analysis = [
-  "https://jx.99yyw.com/99/?url=",
-  "http://jx.598110.com/?url=",
 ];

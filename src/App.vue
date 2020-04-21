@@ -50,19 +50,20 @@
 </template>
 
 <script>
-import { platform, analysis } from "./config";
+import config from "./config";
 export default {
   name: "app",
   data() {
     return {
       platformValue: 0,
       analysisValue: 0,
-      platform,
-      analysis,
+      platform: config.platform,
+      analysis: config.analysis,
       videoUrl: "",
     };
   },
   mounted() {
+    console.log(config, "-----");
     let { platform, platformValue, analysis, analysisValue } = this;
     this.$ipc.on("hapv", (event, arg) => {
       let method = arg.method.replace("/", "_");
