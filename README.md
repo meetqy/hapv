@@ -2,25 +2,37 @@
 
 一个快速，简单，干净可以播放并且下载国内主流视频的播放器。A fast, simple, clean player that can play and download mainstream video in China.
 
-## 界面
+## 使用
 
 ![](./preview/preview.png)
 
-## 安装
+## 技术栈
+
+- Electron
+- Vue
+- Element
+
+下载使用的 annie
+
+## 如何运行
 
 ```
 git clone git@github.com:meetqy/hapv.git
+```
 
+```
+cd hapv
+```
+
+```
 npm install
+```
 
+```
 npm start
 ```
 
-## backlog
+## tag-1
 
 - [ ] 切换解析地址
 - [ ] 整理视频平台播放地址规则
-- [ ] 自定义添加解析地址
-- [ ] 全屏功能
-- [ ] 对应视频下载
-- [ ] 通过 pr 更新视频解析地址
