@@ -11,7 +11,7 @@ export default {
   mounted() {
     this.$store.commit("base/initConfigAnalysis", config.analysis);
     this.$store.commit("base/initConfigPlatform", config.platform);
-  },
+  }
 };
 </script>
 

@@ -16,8 +16,8 @@ const base = {
           rule: "https://v.qq.com/x/cover/",
         },
         */
-      },
-    },
+      }
+    }
   },
 
   mutations: {
@@ -30,9 +30,9 @@ const base = {
     // 初始化平台
     initConfigPlatform(state, data) {
       let { platform } = state.config;
-      data.forEach((val) => {
+      data.forEach(val => {
         platform[val.site] = {
-          ...val,
+          ...val
         };
       });
 
@@ -42,9 +42,9 @@ const base = {
 
     setPlatform(state, val) {
       state.platform = val;
-    },
+    }
   },
-  actions: {},
+  actions: {}
 };
 
 export default base;

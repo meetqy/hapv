@@ -60,11 +60,11 @@ export default {
     return {
       platform: config.platform,
       analysis: config.analysis,
-      drawer: false,
+      drawer: false
     };
   },
   components: {
-    Header,
+    Header
   },
   computed: {
     platformValue: {
@@ -73,12 +73,12 @@ export default {
       },
       set(val) {
         this.$store.commit("base/setPlatform", val);
-      },
-    },
+      }
+    }
   },
   mounted() {
     // console.log(this.$store.getters["base/getPlatform"]);
-  },
+  }
 };
 </script>
 

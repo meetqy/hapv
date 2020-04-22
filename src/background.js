@@ -4,7 +4,7 @@ import { app, protocol, BrowserWindow, ipcMain } from "electron";
 import os from "os";
 import path from "path";
 import {
-  createProtocol,
+  createProtocol
   /* installVueDevtools */
 } from "vue-cli-plugin-electron-builder/lib";
 const isDevelopment = process.env.NODE_ENV !== "production";
@@ -26,7 +26,7 @@ let videoConfig;
 
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
-  { scheme: "app", privileges: { secure: true, standard: true } },
+  { scheme: "app", privileges: { secure: true, standard: true } }
 ]);
 
 function createWindow() {
@@ -35,10 +35,10 @@ function createWindow() {
     width: 1280,
     height: 900,
     webPreferences: {
-      nodeIntegration: true,
+      nodeIntegration: true
     },
     movable: true,
-    titleBarStyle: "hidden",
+    titleBarStyle: "hidden"
   });
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {
@@ -97,7 +97,7 @@ app.on("web-contents-created", (e, webContents) => {
     ipcEvent.sender.send("hapv", {
       method: "open/page",
       data:
-        url.indexOf(videoConfig.rule) > -1 ? videoConfig.analysis + url : url,
+        url.indexOf(videoConfig.rule) > -1 ? videoConfig.analysis + url : url
     });
   });
 });
@@ -125,7 +125,7 @@ app.on("ready", async () => {
 // Exit cleanly on request from parent process in development mode.
 if (isDevelopment) {
   if (process.platform === "win32") {
-    process.on("message", (data) => {
+    process.on("message", data => {
       if (data === "graceful-exit") {
         app.quit();
       }
@@ -141,5 +141,5 @@ if (isDevelopment) {
 let ipcMethod = {
   video_config(arg) {
     videoConfig = arg.data;
-  },
+  }
 };
