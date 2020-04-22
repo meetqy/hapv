@@ -44,7 +44,7 @@
     </el-drawer>
 
     <el-main>
-      <iframe src="https://v.qq.com" frameborder="0"></iframe>
+      <iframe :src="website" frameborder="0"></iframe>
     </el-main>
     <!-- <el-container>
       <el-aside width="200px">aside</el-aside>
@@ -58,20 +58,30 @@ import Header from "@/components/header";
 export default {
   data() {
     return {
-      base: {},
-      config: {},
-      drawer: false
+      drawer: false,
+      website: "" // 当前iframe显示的页面
     };
   },
-  mounted() {
-    this.base = this.$store.state.base;
-    this.config = this.base.config;
-    // console.log(.config.analysis);
-  },
+
   components: {
     Header
   },
+
+  watch: {
+    platformValue(val) {
+      this.website = val;
+    }
+  },
+
   computed: {
+    base() {
+      return this.$store.state.base;
+    },
+
+    config() {
+      return this.base.config;
+    },
+
     platformValue: {
       get() {
         return this.base.platform;
@@ -80,6 +90,7 @@ export default {
         this.$store.commit("base/setPlatform", val);
       }
     },
+
     analysisValue: {
       get() {
         return this.base.analysis;
