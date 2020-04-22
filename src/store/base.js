@@ -24,6 +24,7 @@ const base = {
           site: "https://v.qq.com",
           name: "腾讯视频",
           rule: "https://v.qq.com/x/cover/",
+          nowsite: "https://v.qq.com" // 当前iframe地址，切换平台或者初始化操作是，nowsite=site
         },
         */
       }
@@ -51,7 +52,8 @@ const base = {
       let { platform } = state.config;
       data.forEach(val => {
         platform[val.site] = {
-          ...val
+          ...val,
+          nowsite: val.site
         };
       });
 
@@ -67,6 +69,20 @@ const base = {
     setAnalysis(state, val) {
       state.analysis = val;
       localStorage.setItem("base", JSON.stringify(state));
+    },
+
+    /**
+     * config.platform中的nowsite
+     * 修改之后影响页面跳转
+     */
+    setNowsite(state, { id, nowsite }) {
+      let { platform } = state.config;
+      let temp = platform[id];
+      platform[id] = {
+        ...temp,
+        nowsite
+      };
+      Vue.set(state.config.platform, "platform", platform);
     }
   },
   actions: {}

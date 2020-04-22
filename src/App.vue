@@ -9,8 +9,13 @@ import config from "./config/index";
 export default {
   name: "app",
   mounted() {
-    this.$store.commit("base/initConfigAnalysis", config.analysis);
-    this.$store.commit("base/initConfigPlatform", config.platform);
+    this.initStore();
+  },
+  methods: {
+    initStore() {
+      this.$store.commit("base/initConfigAnalysis", config.analysis);
+      this.$store.commit("base/initConfigPlatform", config.platform);
+    }
   }
 };
 </script>

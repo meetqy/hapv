@@ -44,12 +44,8 @@
     </el-drawer>
 
     <el-main>
-      <iframe :src="website" frameborder="0"></iframe>
+      <iframe :src="nowsite" frameborder="0"></iframe>
     </el-main>
-    <!-- <el-container>
-      <el-aside width="200px">aside</el-aside>
-      <el-main> asd</el-main>
-    </el-container> -->
   </el-container>
 </template>
 
@@ -58,9 +54,15 @@ import Header from "@/components/header";
 export default {
   data() {
     return {
-      drawer: false,
-      website: "" // 当前iframe显示的页面
+      drawer: false
     };
+  },
+
+  mounted() {
+    // 监听后端发送的消息
+    this.$ipc.on("home", (event, data) => {
+      this[data.method](data.data);
+    });
   },
 
   components: {
@@ -68,12 +70,30 @@ export default {
   },
 
   watch: {
-    platformValue(val) {
-      this.website = val;
+    video_config(val) {
+      this.$ipc.send("hapv", {
+        method: "video/config",
+        data: val
+      });
     }
   },
 
   computed: {
+    // 当前iframe地址
+    nowsite() {
+      let platform =
+        this.config.platform && this.config.platform[this.platformValue];
+      return platform ? platform.nowsite : "";
+    },
+
+    // 发送给后台的信息
+    video_config() {
+      return {
+        ...this.config.platform[this.platformValue],
+        analysis: this.analysisValue
+      };
+    },
+
     base() {
       return this.$store.state.base;
     },
@@ -98,6 +118,15 @@ export default {
       set(val) {
         this.$store.commit("base/setAnalysis", val);
       }
+    }
+  },
+
+  methods: {
+    navigate(data) {
+      this.$store.commit("base/setNowsite", {
+        id: this.platformValue,
+        nowsite: data
+      });
     }
   }
 };

@@ -8,6 +8,6 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   modules: {
     play_log,
-    base,
-  },
+    base
+  }
 });

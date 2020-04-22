@@ -80,10 +80,11 @@ app.on("activate", () => {
   }
 });
 
-ipcMain.once("hapv", (event, arg) => {
-  // console.log(arg); // prints "ping"
-  let method = arg.method.replace("/", "_");
-  ipcMethod[method](arg);
+ipcMain.on("hapv", (event, data) => {
+  console.log(data);
+  if (typeof data === "string") return;
+  let method = data.method.replace("/", "_");
+  ipcMethod[method](data);
   ipcEvent = event;
 });
 
@@ -93,9 +94,9 @@ app.on("web-contents-created", (e, webContents) => {
     event.preventDefault();
     // 返回对应的url
     // 如果视频返回解析视频url，反之返回正常url
-    console.log(url, videoConfig.rule, url.indexOf(videoConfig.rule));
-    ipcEvent.sender.send("hapv", {
-      method: "open/page",
+    // console.log(url, videoConfig.rule, url.indexOf(videoConfig.rule));
+    ipcEvent.sender.send("home", {
+      method: "navigate",
       data:
         url.indexOf(videoConfig.rule) > -1 ? videoConfig.analysis + url : url
     });
