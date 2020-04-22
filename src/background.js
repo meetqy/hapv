@@ -1,6 +1,8 @@
 "use strict";
 
 import { app, protocol, BrowserWindow, ipcMain } from "electron";
+import os from "os";
+import path from "path";
 import {
   createProtocol,
   /* installVueDevtools */
@@ -42,6 +44,12 @@ function createWindow() {
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode
     win.loadURL(process.env.WEBPACK_DEV_SERVER_URL);
+    BrowserWindow.addDevToolsExtension(
+      path.join(
+        os.homedir(),
+        "/Library/Application Support/Google/Chrome/Default/Extensions/nhdogjmejiglipccpnnnanhbledajbpd/5.3.3_0"
+      )
+    );
     // win.loadURL("http://127.0.0.1:5500/public/static/qq.html");
     if (!process.env.IS_TEST) win.webContents.openDevTools();
   } else {
@@ -91,9 +99,6 @@ app.on("web-contents-created", (e, webContents) => {
       data:
         url.indexOf(videoConfig.rule) > -1 ? videoConfig.analysis + url : url,
     });
-
-    // win.webContents.loadURL(url);
-    // shell.openExternal(url);
   });
 });
 

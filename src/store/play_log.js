@@ -1,5 +1,6 @@
 // 播放记录
 const play_log = {
+  namespaced: true,
   state: {
     data: [
       /*

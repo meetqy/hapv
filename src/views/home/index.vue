@@ -8,14 +8,14 @@
       <template v-slot:right>
         <el-select size="mini" v-model="platformValue" placeholder="选择平台">
           <el-option
-            v-for="(item, index) in platform"
-            :key="item.value"
-            :label="item.name"
-            :value="index"
+            v-for="(val, key) in platform"
+            :key="key"
+            :label="val.name"
+            :value="key"
           >
           </el-option>
         </el-select>
-        <el-select
+        <!-- <el-select
           class="line"
           size="mini"
           v-model="analysisValue"
@@ -28,7 +28,7 @@
             :value="index"
           >
           </el-option>
-        </el-select>
+        </el-select> -->
       </template>
     </Header>
 
@@ -54,19 +54,30 @@
 
 <script>
 import Header from "@/components/header";
-import config from "../../config/index.js";
 export default {
   data() {
+    let { config } = this.$store.state.base;
     return {
       platform: config.platform,
       analysis: config.analysis,
-      platformValue: 0,
-      analysisValue: 0,
       drawer: false,
     };
   },
   components: {
     Header,
+  },
+  computed: {
+    platformValue: {
+      get() {
+        return this.$store.state.base.platform;
+      },
+      set(val) {
+        this.$store.commit("base/setPlatform", val);
+      },
+    },
+  },
+  mounted() {
+    // console.log(this.$store.getters["base/getPlatform"]);
   },
 };
 </script>
