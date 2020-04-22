@@ -3,7 +3,7 @@
     <Header>
       <template v-slot:left>
         <!-- <el-link type="primary" @click="drawer = true">历史记录</el-link> -->
-        <el-button @click="drawer = true" size="mini">播放记录</el-button>
+        <el-button @click="drawer = !drawer" size="mini">播放记录</el-button>
       </template>
       <template v-slot:right>
         <el-select size="mini" v-model="platformValue" placeholder="选择平台">
