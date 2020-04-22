@@ -8,27 +8,28 @@
       <template v-slot:right>
         <el-select size="mini" v-model="platformValue" placeholder="选择平台">
           <el-option
-            v-for="(val, key) in platform"
+            v-for="(val, key) in config.platform"
             :key="key"
             :label="val.name"
             :value="key"
           >
           </el-option>
         </el-select>
-        <!-- <el-select
+
+        <el-select
           class="line"
           size="mini"
           v-model="analysisValue"
           placeholder="选择线路"
         >
           <el-option
-            v-for="(item, index) in analysis"
-            :key="item"
-            :label="'线路-' + (index + 1)"
-            :value="index"
+            v-for="(val, key) in config.analysis"
+            :key="key"
+            :label="val.name"
+            :value="key"
           >
           </el-option>
-        </el-select> -->
+        </el-select>
       </template>
     </Header>
 
@@ -56,12 +57,16 @@
 import Header from "@/components/header";
 export default {
   data() {
-    let { config } = this.$store.state.base;
     return {
-      platform: config.platform,
-      analysis: config.analysis,
+      base: {},
+      config: {},
       drawer: false
     };
+  },
+  mounted() {
+    this.base = this.$store.state.base;
+    this.config = this.base.config;
+    // console.log(.config.analysis);
   },
   components: {
     Header
@@ -69,15 +74,20 @@ export default {
   computed: {
     platformValue: {
       get() {
-        return this.$store.state.base.platform;
+        return this.base.platform;
       },
       set(val) {
         this.$store.commit("base/setPlatform", val);
       }
+    },
+    analysisValue: {
+      get() {
+        return this.base.analysis;
+      },
+      set(val) {
+        this.$store.commit("base/setAnalysis", val);
+      }
     }
-  },
-  mounted() {
-    // console.log(this.$store.getters["base/getPlatform"]);
   }
 };
 </script>
