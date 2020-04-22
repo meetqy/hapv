@@ -1,5 +1,5 @@
 // 播放记录
-const playLog = {
+const play_log = {
   state: {
     data: [
       /*
@@ -16,4 +16,4 @@ const playLog = {
   getters: {},
 };
 
-export default playLog;
+export default play_log;

@@ -1,11 +1,13 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import playLog from "./play_log";
+import play_log from "./play_log";
+import base from "./base";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   modules: {
-    playLog,
+    play_log,
+    base,
   },
 });
