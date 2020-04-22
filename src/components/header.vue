@@ -80,6 +80,11 @@ export default {
   .left,
   .right {
     width: 30%;
+    display: flex;
+  }
+
+  .right {
+    justify-content: flex-end;
   }
 }
 </style>
