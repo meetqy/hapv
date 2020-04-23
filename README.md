@@ -4,15 +4,13 @@
 
 ## 使用
 
-![](./preview/preview.png)
-
 ## 技术栈
 
 - Electron
 - Vue
 - Element
 
-下载使用的 annie
+下载功能需安装 [annie](https://github.com/iawia002/annie)
 
 ## 如何运行
 
