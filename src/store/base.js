@@ -3,9 +3,6 @@ import Vue from "vue";
 const base = {
   namespaced: true,
   state: {
-    cache: localStorage.getItem("base")
-      ? JSON.parse(localStorage.getItem("base"))
-      : "",
     platform: "", // 默认视频平台 key
     analysis: "", // 默认线路   value
     config: {
@@ -32,43 +29,67 @@ const base = {
   },
 
   mutations: {
+    // 初始化
+    init(state, { analysis, platform }) {
+      let cache = localStorage.getItem("base")
+        ? JSON.parse(localStorage.getItem("base"))
+        : "";
+
+      this.commit("base/initConfigAnalysis", {
+        cache,
+        analysis
+      });
+      this.commit("base/initConfigPlatform", {
+        cache,
+        platform
+      });
+    },
+
     // 初始化线路
     initConfigAnalysis(state, data) {
-      let { cache } = state;
+      let { cache } = data;
       let { analysis } = state.config;
-      data.forEach((val, index) => {
+      data.analysis.forEach((val, index) => {
         analysis[val] = {
           name: "线路" + (index + 1)
         };
       });
 
+      state.analysis = cache ? cache.analysis : data.analysis[0];
       Vue.set(state.config, "analysis", analysis);
-      state.analysis = cache ? cache.analysis : data[0];
+
+      this.commit("base/save");
     },
 
     // 初始化平台
     initConfigPlatform(state, data) {
-      let { cache } = state;
+      let { cache } = data;
       let { platform } = state.config;
-      data.forEach(val => {
+      data.platform.forEach(val => {
         platform[val.site] = {
           ...val,
           nowsite: val.site
         };
       });
 
+      state.platform = cache ? cache.platform : data.platform[0].site;
       Vue.set(state.config, "platform", platform);
-      state.platform = cache ? cache.platform : data[0].site;
+
+      this.commit("base/save");
+    },
+
+    save(state) {
+      localStorage.setItem("base", JSON.stringify(state));
     },
 
     setPlatform(state, val) {
       state.platform = val;
-      localStorage.setItem("base", JSON.stringify(state));
+      this.commit("base/save");
     },
 
     setAnalysis(state, val) {
       state.analysis = val;
-      localStorage.setItem("base", JSON.stringify(state));
+      this.commit("base/save");
     },
 
     /**

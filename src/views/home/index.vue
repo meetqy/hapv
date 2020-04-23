@@ -71,6 +71,7 @@ export default {
 
   watch: {
     video_config(val) {
+      console.log(val);
       this.$ipc.send("hapv", {
         method: "video/config",
         data: val

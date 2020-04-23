@@ -3,5 +3,5 @@ import analysis from "./analysis";
 
 export default {
   platform,
-  analysis,
+  analysis
 };
