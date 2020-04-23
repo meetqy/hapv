@@ -44,6 +44,7 @@ function createWindow() {
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode
     win.loadURL(process.env.WEBPACK_DEV_SERVER_URL);
+    // 添加vue-tools
     BrowserWindow.addDevToolsExtension(
       path.join(
         os.homedir(),
@@ -94,11 +95,12 @@ app.on("web-contents-created", (e, webContents) => {
     event.preventDefault();
     // 返回对应的url
     // 如果视频返回解析视频url，反之返回正常url
-    // console.log(url, videoConfig.rule, url.indexOf(videoConfig.rule));
+    // console.log(url, videoConfig.rule, url.match(videoConfig.rule));
+    if (url === "about:blank")
+      return ipcEvent.sender.send("err", "page address => about:blank");
     ipcEvent.sender.send("home", {
       method: "navigate",
-      data:
-        url.indexOf(videoConfig.rule) > -1 ? videoConfig.analysis + url : url
+      data: url.match(videoConfig.rule) ? videoConfig.analysis + url : url
     });
   });
 });

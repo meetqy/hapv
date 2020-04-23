@@ -10,11 +10,20 @@ export default {
   name: "app",
   mounted() {
     this.initStore();
+    this.$ipc.on("err", (event, data) => {
+      this.$message({
+        type: "error",
+        message: data,
+        offset: 80
+      });
+    });
   },
   methods: {
     initStore() {
-      this.$store.commit("base/initConfigAnalysis", config.analysis);
-      this.$store.commit("base/initConfigPlatform", config.platform);
+      this.$store.commit("base/init", {
+        analysis: config.analysis,
+        platform: config.platform
+      });
     }
   }
 };
