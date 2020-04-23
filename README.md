@@ -2,7 +2,19 @@
 
 一个快速，简单，干净可以播放并且下载国内主流视频的播放器。A fast, simple, clean player that can play and download mainstream video in China.
 
-## 使用
+## 界面
+
+1. 打开软件
+
+![](./preview/1.png)
+
+2. 搜索视频
+
+![](./preview/2.png)
+
+3. 直接观看
+
+![](./preview/3.png)
 
 ## 技术栈
 
@@ -30,7 +42,12 @@ npm install
 npm start
 ```
 
-## tag-1
+## 当前版本-待完善 v0.1.0
 
-- [ ] 切换解析地址
-- [ ] 整理视频平台播放地址规则
+- [ ] 爱奇艺空白页面重定向问题
+- [ ] 进入视频播放无法返回
+
+## v0.2.0-backlog
+
+- [ ] 播放记录
+- [ ] 返回上一个页面
