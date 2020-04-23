@@ -82,7 +82,9 @@ const base = {
         ...temp,
         nowsite
       };
-      Vue.set(state.config.platform, "platform", platform);
+      state.config.platform = {
+        ...platform
+      };
     }
   },
   actions: {}

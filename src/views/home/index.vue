@@ -8,7 +8,7 @@
       <template v-slot:right>
         <el-select size="mini" v-model="platformValue" placeholder="选择平台">
           <el-option
-            v-for="(val, key) in config.platform"
+            v-for="(val, key) in platform"
             :key="key"
             :label="val.name"
             :value="key"
@@ -23,7 +23,7 @@
           placeholder="选择线路"
         >
           <el-option
-            v-for="(val, key) in config.analysis"
+            v-for="(val, key) in analysis"
             :key="key"
             :label="val.name"
             :value="key"
@@ -81,15 +81,14 @@ export default {
   computed: {
     // 当前iframe地址
     nowsite() {
-      let platform =
-        this.config.platform && this.config.platform[this.platformValue];
+      let platform = this.platform && this.platform[this.platformValue];
       return platform ? platform.nowsite : "";
     },
 
     // 发送给后台的信息
     video_config() {
       return {
-        ...this.config.platform[this.platformValue],
+        ...this.platform[this.platformValue],
         analysis: this.analysisValue
       };
     },
@@ -98,8 +97,16 @@ export default {
       return this.$store.state.base;
     },
 
-    config() {
-      return this.base.config;
+    // config() {
+    //   return this.base.config;
+    // },
+
+    platform() {
+      return this.base.config.platform;
+    },
+
+    analysis() {
+      return this.base.config.analysis;
     },
 
     platformValue: {
