@@ -1,3 +1,5 @@
+![](./hapv.png)
+
 # hapv(Happy Video)
 
 一个快速，简单，干净可以播放并且下载国内主流视频的播放器。A fast, simple, clean player that can play and download mainstream video in China.
@@ -16,10 +18,11 @@
 
 ![](./preview/3.png)
 
-## 技术栈
+## 技术栈&插件
 
 - Electron
 - Vue
+- vue-cli-plugin-electron-builder
 - Element
 
 下载功能需安装 [annie](https://github.com/iawia002/annie)

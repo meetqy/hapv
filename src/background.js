@@ -32,6 +32,7 @@ protocol.registerSchemesAsPrivileged([
 function createWindow() {
   // Create the browser window.
   win = new BrowserWindow({
+    title: "hapv",
     width: 1280,
     height: 900,
     webPreferences: {
@@ -44,13 +45,6 @@ function createWindow() {
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode
     win.loadURL(process.env.WEBPACK_DEV_SERVER_URL);
-    // 添加vue-tools
-    BrowserWindow.addDevToolsExtension(
-      path.join(
-        os.homedir(),
-        "/Library/Application Support/Google/Chrome/Default/Extensions/nhdogjmejiglipccpnnnanhbledajbpd/5.3.3_0"
-      )
-    );
     // win.loadURL("http://127.0.0.1:5500/public/static/qq.html");
     if (!process.env.IS_TEST) win.webContents.openDevTools();
   } else {
@@ -59,7 +53,7 @@ function createWindow() {
     win.loadURL("app://./index.html");
   }
 
-  win.on("closed", () => {
+  win.on("closed", e => {
     win = null;
   });
 }
@@ -116,11 +110,17 @@ app.on("ready", async () => {
     // Electron will not launch with Devtools extensions installed on Windows 10 with dark mode
     // If you are not using Windows 10 dark mode, you may uncomment these lines
     // In addition, if the linked issue is closed, you can upgrade electron and uncomment these lines
-    // try {
-    //   await installVueDevtools()
-    // } catch (e) {
-    //   console.error('Vue Devtools failed to install:', e.toString())
-    // }
+    try {
+      // 添加vue-tools
+      BrowserWindow.addDevToolsExtension(
+        path.join(
+          os.homedir(),
+          "/Library/Application Support/Google/Chrome/Default/Extensions/nhdogjmejiglipccpnnnanhbledajbpd/5.3.3_0"
+        )
+      );
+    } catch (e) {
+      console.error("Vue Devtools failed to install:", e.toString());
+    }
   }
   createWindow();
 });
