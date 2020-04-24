@@ -16,9 +16,9 @@
 
 ![](./preview/3.png)
 
-## 下载体验
+## 下载
 
-- [mac]()
+- [v0.1.0-alpha](https://gitee.com/meetqy/hapv/releases)
 
 ## 技术栈&插件
 
