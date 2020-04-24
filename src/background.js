@@ -36,7 +36,8 @@ function createWindow() {
     width: 1280,
     height: 900,
     webPreferences: {
-      nodeIntegration: true
+      nodeIntegration: true,
+      webviewTag: true
     },
     movable: true,
     titleBarStyle: "hidden"
@@ -58,6 +59,13 @@ function createWindow() {
   });
 }
 
+// 设置应用
+function setApp() {
+  app.setName("hapv");
+
+  // app.dock.setBadge("hapv");
+}
+
 // Quit when all windows are closed.
 app.on("window-all-closed", () => {
   // On macOS it is common for applications and their menu bar
@@ -76,7 +84,7 @@ app.on("activate", () => {
 });
 
 ipcMain.on("hapv", (event, data) => {
-  console.log(data);
+  // console.log(data);
   if (typeof data === "string") return;
   let method = data.method.replace("/", "_");
   ipcMethod[method](data);
@@ -85,17 +93,27 @@ ipcMain.on("hapv", (event, data) => {
 
 // 拦截iframe中的点击事件
 app.on("web-contents-created", (e, webContents) => {
-  webContents.on("new-window", (event, url) => {
+  webContents.on("new-window", (event, url, frameName, disposition) => {
+    console.log(url, frameName, disposition);
     event.preventDefault();
-    // 返回对应的url
-    // 如果视频返回解析视频url，反之返回正常url
-    // console.log(url, videoConfig.rule, url.match(videoConfig.rule));
-    if (url === "about:blank")
-      return ipcEvent.sender.send("err", "page address => about:blank");
-    ipcEvent.sender.send("home", {
-      method: "navigate",
-      data: url.match(videoConfig.rule) ? videoConfig.analysis + url : url
-    });
+    // // 返回对应的url
+    // // 如果视频返回解析视频url，反之返回正常url
+    // // console.log(url, videoConfig.rule, url.match(videoConfig.rule));
+    // if (url === "about:blank") {
+    //   // return ipcEvent.sender.send("err", "page address => about:blank");
+    //   ipcEvent.sender.send("home", {
+    //     method: "navigate",
+    //     data: url
+    //   });
+    //   return;
+    // }
+    // ipcEvent.sender.send("home", {
+    //   method: "navigate",
+    //   data: url.match(videoConfig.rule) ? videoConfig.analysis + url : url
+    // });
+  });
+  webContents.on("did-get-response-details", (event, status, url) => {
+    console.log(url);
   });
 });
 
@@ -122,6 +140,7 @@ app.on("ready", async () => {
       console.error("Vue Devtools failed to install:", e.toString());
     }
   }
+  setApp();
   createWindow();
 });
 

@@ -44,7 +44,7 @@
     </el-drawer>
 
     <el-main>
-      <iframe :src="nowsite" frameborder="0"></iframe>
+      <webview :src="nowsite" frameborder="0"></webview>
     </el-main>
   </el-container>
 </template>
@@ -80,7 +80,7 @@ export default {
   },
 
   computed: {
-    // 当前iframe地址
+    // 当前webview地址
     nowsite() {
       let platform = this.platform && this.platform[this.platformValue];
       return platform ? platform.nowsite : "";
@@ -153,7 +153,7 @@ export default {
 }
 
 .el-main {
-  iframe {
+  webview {
     width: 100%;
     height: 100%;
   }
