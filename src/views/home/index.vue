@@ -130,6 +130,7 @@ export default {
   },
 
   methods: {
+    // 后端方法
     navigate(data) {
       this.$store.commit("base/setNowsite", {
         id: this.platformValue,
