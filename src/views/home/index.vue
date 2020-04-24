@@ -44,7 +44,7 @@
     </el-drawer>
 
     <el-main>
-      <webview :src="nowsite" frameborder="0"></webview>
+      <webview :src="nowsite" id="webview"></webview>
     </el-main>
   </el-container>
 </template>

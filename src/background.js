@@ -37,7 +37,7 @@ function createWindow() {
     height: 900,
     webPreferences: {
       nodeIntegration: true,
-      webviewTag: true
+      webviewTag: true // 开启webview
     },
     movable: true,
     titleBarStyle: "hidden"
@@ -93,27 +93,18 @@ ipcMain.on("hapv", (event, data) => {
 
 // 拦截iframe中的点击事件
 app.on("web-contents-created", (e, webContents) => {
-  webContents.on("new-window", (event, url, frameName, disposition) => {
-    console.log(url, frameName, disposition);
+  webContents.on("new-window", (event, url) => {
     event.preventDefault();
-    // // 返回对应的url
-    // // 如果视频返回解析视频url，反之返回正常url
-    // // console.log(url, videoConfig.rule, url.match(videoConfig.rule));
-    // if (url === "about:blank") {
-    //   // return ipcEvent.sender.send("err", "page address => about:blank");
-    //   ipcEvent.sender.send("home", {
-    //     method: "navigate",
-    //     data: url
-    //   });
-    //   return;
-    // }
-    // ipcEvent.sender.send("home", {
-    //   method: "navigate",
-    //   data: url.match(videoConfig.rule) ? videoConfig.analysis + url : url
-    // });
-  });
-  webContents.on("did-get-response-details", (event, status, url) => {
-    console.log(url);
+    // 返回对应的url
+    // 如果视频返回解析视频url，反之返回正常url
+    console.log(url, videoConfig.rule, url.match(videoConfig.rule));
+    if (url === "about:blank") {
+      return ipcEvent.sender.send("err", "page address => about:blank");
+    }
+    ipcEvent.sender.send("home", {
+      method: "navigate",
+      data: url.match(videoConfig.rule) ? videoConfig.analysis + url : url
+    });
   });
 });
 
