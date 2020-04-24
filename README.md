@@ -62,7 +62,6 @@ npm start
 - [x] 非新窗口没有监听
 - [ ] 爱奇艺空白页面重定向问题
 - [x] 进入视频播放无法返回
-- [ ] mac 打包 Windows 问题
 - [x] 前进后退刷新
 
 ## v0.2.0-alpha backlog
