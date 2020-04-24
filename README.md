@@ -18,7 +18,7 @@
 
 ## 下载
 
-- [v0.1.0-alpha](https://gitee.com/meetqy/hapv/releases)
+- [v0.1.x](https://gitee.com/meetqy/hapv/releases)
 
 ## 技术栈&插件
 
@@ -47,7 +47,7 @@ npm install
 npm start
 ```
 
-## v0.1.0-alpha 待完善
+## v0.1.x-alpha 待完善
 
 - [x] 非新窗口没有监听
 - [ ] 爱奇艺空白页面重定向问题
