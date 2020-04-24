@@ -63,6 +63,15 @@ export default {
     this.$ipc.on("home", (event, data) => {
       this[data.method](data.data);
     });
+
+    const webview = document.getElementById("webview");
+    webview.addEventListener("did-navigate", (status, newURL) => {
+      console.log(webview.getURL(), "webview");
+      this.$store.commit("base/setNowsite", {
+        id: this.platformValue,
+        nowsite: webview.getURL()
+      });
+    });
   },
 
   components: {

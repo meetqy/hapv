@@ -1,7 +1,7 @@
 /* eslint-disable */
 export default [
   {
-    site: "https://v.qq.com",
+    site: "https://v.qq.com/",
     name: "腾讯视频",
     rule: `v\.qq\.com\/x\/cover\/`
   },

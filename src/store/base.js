@@ -121,7 +121,6 @@ const base = {
      * 修改之后影响页面跳转
      */
     setNowsite(state, { id, nowsite }) {
-      console.log(123);
       let { platform } = state.config;
       let temp = platform[id];
 
@@ -130,6 +129,7 @@ const base = {
       let historySiteIndex = historySite.indexOf(nowsite);
       if (historySiteIndex > -1) {
         historySite.splice(historySiteIndex, 1);
+        console.log(historySite);
       }
       historySite.push(nowsite);
 
