@@ -2,6 +2,10 @@
 
 一个快速，简单，干净可以播放并且下载国内主流视频的播放器。A fast, simple, clean player that can play and download mainstream video in China.
 
+## 下载
+
+- [v0.1.x-alpha](https://gitee.com/meetqy/hapv/releases)
+
 ## 界面
 
 1. 打开软件
@@ -15,10 +19,6 @@
 3. 直接观看
 
 ![](./preview/3.png)
-
-## 下载
-
-- [v0.1.x](https://gitee.com/meetqy/hapv/releases)
 
 ## 技术栈&插件
 
@@ -46,6 +46,16 @@ npm install
 ```
 npm start
 ```
+
+## 原理
+
+1. 利用`electron`框架，返回 web 页面
+2. 页面中嵌入 webview，url 为各平台官网
+3. 利用`electron`提供的 api，监听页面跳转，劫持链接，返回解析之后的视频链接。
+
+## 开发规范
+
+- [开发规范](./开发规范.md)
 
 ## v0.1.x-alpha 待完善
 
