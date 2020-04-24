@@ -47,13 +47,13 @@ npm install
 npm start
 ```
 
-## 当前版本-待完善 v0.1.0
+## v0.1.0-alpha 待完善
 
 - [ ] 爱奇艺空白页面重定向问题
 - [ ] 进入视频播放无法返回
 - [ ] mac 打包 Windows 问题
+- [ ] 前进后退
 
-## v0.2.0-backlog
+## v0.2.0-alpha backlog
 
 - [ ] 播放记录
-- [ ] 返回上一个页面
