@@ -4,6 +4,29 @@
       <template v-slot:left>
         <!-- <el-link type="primary" @click="drawer = true">历史记录</el-link> -->
         <el-button @click="drawer = !drawer" size="mini">播放记录</el-button>
+        <el-button
+          icon="el-icon-caret-left"
+          @click="goTo(-1)"
+          :disabled="isShowBtn(-1)"
+          circle
+          size="mini"
+        >
+        </el-button>
+        <el-button
+          @click="goTo(1)"
+          :disabled="isShowBtn(1)"
+          icon="el-icon-caret-right"
+          circle
+          size="mini"
+        >
+        </el-button>
+        <el-button
+          @click="webview.reload()"
+          icon="el-icon-refresh-right"
+          circle
+          size="mini"
+        >
+        </el-button>
       </template>
       <template v-slot:right>
         <el-select size="mini" v-model="platformValue" placeholder="选择平台">
@@ -51,25 +74,30 @@
 
 <script>
 import Header from "@/components/header";
+import platform from "../../config/platform";
 export default {
   data() {
     return {
-      drawer: false
+      drawer: false,
+      isCheckPageBtn: false,
+      webview: ""
     };
   },
 
   mounted() {
     // 监听后端发送的消息
     this.$ipc.on("home", (event, data) => {
+      // console.log(data);
       this[data.method](data.data);
     });
 
-    const webview = document.getElementById("webview");
-    webview.addEventListener("did-navigate", (status, newURL) => {
-      console.log(webview.getURL(), "webview");
+    this.webview = document.getElementById("webview");
+    this.webview.addEventListener("did-navigate", (status, newURL) => {
+      if (this.isCheckPageBtn) return (this.isCheckPageBtn = false);
+      // console.log(webview.getURL(), "webview");
       this.$store.commit("base/setNowsite", {
         id: this.platformValue,
-        nowsite: webview.getURL()
+        nowsite: this.webview.getURL()
       });
     });
   },
@@ -139,12 +167,30 @@ export default {
   },
 
   methods: {
-    // 后端方法
-    navigate(data) {
+    s_navigate(data) {
       this.$store.commit("base/setNowsite", {
         id: this.platformValue,
         nowsite: data
       });
+    },
+
+    goTo(num) {
+      this.isCheckPageBtn = true;
+      this.$store.commit("base/setNowsiteToBtn", {
+        id: this.platformValue,
+        num
+      });
+    },
+
+    isShowBtn(num) {
+      let item = this.platform[this.platformValue];
+      if (!item) return false;
+      let { nowsite, historysite } = item;
+      if (num === -1) {
+        return historysite.indexOf(nowsite) <= 0;
+      } else {
+        return historysite.indexOf(nowsite) >= historysite.length - 1;
+      }
     }
   }
 };

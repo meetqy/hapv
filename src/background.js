@@ -102,7 +102,7 @@ app.on("web-contents-created", (e, webContents) => {
       return ipcEvent.sender.send("err", "page address => about:blank");
     }
     ipcEvent.sender.send("home", {
-      method: "navigate",
+      method: "s_navigate",
       data: url.match(videoConfig.rule) ? videoConfig.analysis + url : url
     });
   });

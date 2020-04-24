@@ -62,7 +62,7 @@ const base = {
       state.analysis = cache ? cache.analysis : data.analysis[0];
       Vue.set(state.config, "analysis", analysis);
 
-      this.commit("base/save");
+      this.commit("base/saveLocal");
     },
 
     // 初始化平台
@@ -99,21 +99,45 @@ const base = {
       state.platform = cache ? cache.platform : data.platform[0].site;
       Vue.set(state.config, "platform", platform);
 
-      this.commit("base/save");
+      this.commit("base/saveLocal");
     },
 
-    save(state) {
+    saveLocal(state) {
       localStorage.setItem("base", JSON.stringify(state));
     },
 
     setPlatform(state, val) {
       state.platform = val;
-      this.commit("base/save");
+      this.commit("base/saveLocal");
     },
 
     setAnalysis(state, val) {
       state.analysis = val;
-      this.commit("base/save");
+      this.commit("base/saveLocal");
+    },
+
+    /**
+     * 通过按钮控制页面，加入历史记录
+     * @param {*} state
+     * @param {*} {id, num} num: 后退 -1,前进 1
+     */
+    setNowsiteToBtn(state, { id, num }) {
+      // if (num != 1 || num != -1) return;
+
+      let { platform } = state.config;
+      let temp = platform[id];
+      let nowsiteIndex = temp.historysite.indexOf(temp.nowsite) + num;
+
+      let historysiteLen = temp.historysite.length;
+      if (nowsiteIndex < 0) nowsiteIndex = 0;
+      if (nowsiteIndex >= historysiteLen - 1) nowsiteIndex = historysiteLen - 1;
+
+      temp.nowsite = temp.historysite[nowsiteIndex];
+      platform[id] = temp;
+      state.config.platform = {
+        ...platform
+      };
+      this.commit("base/saveLocal");
     },
 
     /**
@@ -121,28 +145,27 @@ const base = {
      * 修改之后影响页面跳转
      */
     setNowsite(state, { id, nowsite }) {
-      let { platform } = state.config;
+      let { platform, analysis } = state.config;
       let temp = platform[id];
+      let { historysite } = temp;
 
       // 新增历史记录
-      let historySite = temp.historysite;
-      let historySiteIndex = historySite.indexOf(nowsite);
-      if (historySiteIndex > -1) {
-        historySite.splice(historySiteIndex, 1);
-        console.log(historySite);
+      let nowsiteIndex = historysite.indexOf(nowsite);
+      if (nowsiteIndex > -1) {
+        historysite.splice(nowsiteIndex, 1);
       }
-      historySite.push(nowsite);
+      historysite.push(nowsite);
 
       platform[id] = {
         ...temp,
         nowsite,
-        historysite: historySite
+        historysite
       };
       state.config.platform = {
         ...platform
       };
 
-      this.commit("base/save");
+      this.commit("base/saveLocal");
     }
   },
   actions: {}
