@@ -16,6 +16,10 @@
 
 ![](./preview/3.png)
 
+## 下载体验
+
+- [mac]()
+
 ## 技术栈&插件
 
 - Electron
@@ -47,6 +51,7 @@ npm start
 
 - [ ] 爱奇艺空白页面重定向问题
 - [ ] 进入视频播放无法返回
+- [ ] mac 打包 Windows 问题
 
 ## v0.2.0-backlog
 

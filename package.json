@@ -4,7 +4,7 @@
   "private": false,
   "description": "一个快速，简单，干净可以播放并且下载国内主流视频的播放器。A fast, simple, clean player that can play and download mainstream video in China.",
   "scripts": {
-    "build:win": "vue-cli-service electron:build --windows --x64",
+    "build:win": "vue-cli-service electron:build --windows",
     "build:mac": "vue-cli-service electron:build --macos",
     "start": "vue-cli-service electron:serve"
   },
