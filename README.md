@@ -8,8 +8,8 @@
 
 ## 界面
 
-<p style='display: inline-flex;justify-content: space-between;'><img src='./preview/1.png' style='width: 48%'><img src='./preview/4.png' style='width: 48%'></p>
-<p style='display: inline-flex;justify-content: space-between;'><img src='./preview/2.png' style='width: 48%'><img src='./preview/3.png' style='width: 48%'></p>
+<p><img src='./preview/1.png' width='48%'>，<img src='./preview/4.png' width='48%'></p>
+<p><img src='./preview/2.png' width='48%'>，<img src='./preview/3.png' width='48%'></p>
 
 ## 技术栈&插件
 
