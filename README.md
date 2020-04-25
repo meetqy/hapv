@@ -4,7 +4,7 @@
 
 ## 下载
 
-- [v0.1.x-alpha](https://gitee.com/meetqy/hapv/releases)
+- [下载体验](https://gitee.com/meetqy/hapv/releases)
 
 ## 界面
 
