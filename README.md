@@ -8,7 +8,7 @@
 
 ## 界面
 
-|                              |                              |
+|            \*\*\*            |            \*\*\*            |
 | :--------------------------: | :--------------------------: |
 | <img src='./preview/1.png' > | <img src='./preview/4.png' > |
 | <img src='./preview/2.png' > | <img src='./preview/3.png' > |
