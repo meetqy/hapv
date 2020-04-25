@@ -1,6 +1,6 @@
 <p align="center"><img src="./hapv.png" alt="hapv"></p>
 
-electron 开发的一个可以播放并且下载国内主流视频的播放器。A player developed by electron that can play and download domestic mainstream video.
+electron 开发的一个可以播放,下载国内主流视频的播放器。A player developed by electron that can play and download domestic mainstream video.
 
 ## 下载
 
