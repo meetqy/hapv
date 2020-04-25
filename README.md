@@ -8,8 +8,10 @@
 
 ## 界面
 
-<p><img src='./preview/1.png' width='48%'>，<img src='./preview/4.png' width='48%'></p>
-<p><img src='./preview/2.png' width='48%'>，<img src='./preview/3.png' width='48%'></p>
+|                              |                              |
+| :--------------------------: | :--------------------------: |
+| <img src='./preview/1.png' > | <img src='./preview/4.png' > |
+| <img src='./preview/2.png' > | <img src='./preview/3.png' > |
 
 ## 技术栈&插件
 
