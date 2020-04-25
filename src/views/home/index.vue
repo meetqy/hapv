@@ -58,12 +58,24 @@
 
     <el-drawer
       direction="ltr"
-      title="我是标题"
+      title="播放记录"
       :visible.sync="drawer"
       :with-header="false"
-      size="20%"
+      size="38%"
+      class="drawer"
     >
-      <span>我来啦!</span>
+      <div class="drawer-body">
+        <p v-for="item in playLog" :key="item.url">
+          <span style="color:#909399">{{ replaceTime(item.visitDate) }}</span>
+          <span
+            class="platform"
+            :style="{ color: platform[item.platformSite].themeColor }"
+          >
+            {{ platform[item.platformSite].name }}
+          </span>
+          <span :title="item.title">{{ showPlayLogTitle(item.title) }}</span>
+        </p>
+      </div>
     </el-drawer>
 
     <el-main>
@@ -147,6 +159,10 @@ export default {
       return this.base.config.analysis;
     },
 
+    playLog() {
+      return this.$store.state.play_log.data;
+    },
+
     platformValue: {
       get() {
         return this.base.platform;
@@ -167,11 +183,29 @@ export default {
   },
 
   methods: {
+    s_play_log({ url, title, platformSite }) {
+      this.$store.commit("play_log/add", {
+        url,
+        title,
+        platformSite
+      });
+    },
+
     s_navigate(data) {
       this.$store.commit("base/setNowsite", {
         id: this.platformValue,
         nowsite: data
       });
+    },
+
+    showPlayLogTitle(val) {
+      return val.length > 15 ? val.substring(0, 15) + "..." : val;
+    },
+
+    // 替换 pm 为上午
+    replaceTime(val) {
+      if (val.indexOf("am") > -1) return val.replace("am", "上午");
+      if (val.indexOf("pm") > -1) return val.replace("pm", "下午");
     },
 
     goTo(num) {
@@ -200,12 +234,34 @@ export default {
 .line {
   margin-left: 20px;
 }
+
 .el-aside {
   position: relative;
   border-right: 1px solid #eee;
 }
+
 .el-drawer__wrapper {
   padding-top: 60px;
+}
+
+.drawer-body {
+  padding: 20px;
+  p {
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    height: 44px;
+    // border-bottom: 1px solid #dcdfe6;
+    width: 100%;
+    font-size: 14px;
+    display: inline-flex;
+    .platform {
+      margin-left: 30px;
+      display: inline-block;
+      text-align: left;
+      width: 100px;
+    }
+  }
 }
 
 .el-main {

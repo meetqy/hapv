@@ -7,6 +7,9 @@ import {
   createProtocol
   /* installVueDevtools */
 } from "vue-cli-plugin-electron-builder/lib";
+
+const { spawn, exec } = require("child_process");
+
 const isDevelopment = process.env.NODE_ENV !== "production";
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -101,10 +104,29 @@ app.on("web-contents-created", (e, webContents) => {
     if (url === "about:blank") {
       return ipcEvent.sender.send("err", "page address => about:blank");
     }
-    ipcEvent.sender.send("home", {
-      method: "s_navigate",
-      data: url.match(videoConfig.rule) ? videoConfig.analysis + url : url
-    });
+
+    if (url.match(videoConfig.rule)) {
+      exec(`curl ${url}`, (err, stdout, stderr) => {
+        let title = stdout.match(/<title>.*?<\/title>/g);
+        ipcEvent.sender.send("home", {
+          method: "s_play_log",
+          data: {
+            url,
+            title: title[0].replace(/<title>|<\/title>/g, ""),
+            platformSite: videoConfig.site
+          }
+        });
+      });
+      ipcEvent.sender.send("home", {
+        method: "s_navigate",
+        data: videoConfig.analysis + url
+      });
+    } else {
+      ipcEvent.sender.send("home", {
+        method: "s_navigate",
+        data: url
+      });
+    }
   });
 });
 

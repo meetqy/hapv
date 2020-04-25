@@ -20,6 +20,16 @@ export default {
   },
   methods: {
     initStore() {
+      this.initBaseStore();
+      this.initPlayLogStore();
+    },
+
+    initPlayLogStore() {
+      this.$store.commit("play_log/init");
+    },
+
+    // 初始化base
+    initBaseStore() {
       this.$store.commit("base/init", {
         analysis: config.analysis,
         platform: config.platform

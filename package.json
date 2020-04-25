@@ -1,7 +1,7 @@
 {
   "name": "hapv",
   "productName": "hapv",
-  "version": "0.1.1-alpha",
+  "version": "0.2.0-alpha",
   "private": false,
   "description": "一个快速，简单，干净可以播放并且下载国内主流视频的播放器。A fast, simple, clean player that can play and download mainstream video in China.",
   "scripts": {
@@ -13,6 +13,7 @@
   "dependencies": {
     "core-js": "^3.6.4",
     "element-ui": "^2.4.5",
+    "moment": "^2.24.0",
     "vue": "^2.6.11",
     "vue-router": "^3.1.6",
     "vuex": "^3.1.3"
