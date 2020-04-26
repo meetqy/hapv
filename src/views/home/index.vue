@@ -61,13 +61,16 @@
       title="播放记录"
       :visible.sync="drawer"
       :with-header="false"
-      size="38%"
+      size="32%"
       class="drawer"
     >
       <div class="drawer-body" v-if="playLog.length">
         <p v-for="item in playLog" :key="item.url">
           <span style="color:#909399">{{ replaceTime(item.visitDate) }}</span>
-          <el-link :underline="false" :href="item.platform" target="_blank">
+          <el-link
+            :underline="false"
+            @click="setPlatformValue(item.platformSite)"
+          >
             <span
               class="platform"
               :style="{ color: platform[item.platformSite].themeColor }"
@@ -130,7 +133,7 @@ export default {
 
   watch: {
     video_config(val) {
-      console.log(val);
+      // console.log(val);
       this.$ipc.send("hapv", {
         method: "video/config",
         data: val
@@ -209,8 +212,13 @@ export default {
       });
     },
 
+    setPlatformValue(val) {
+      console.log(val);
+      this.$store.commit("base/setPlatform", val);
+    },
+
     showPlayLogTitle(val) {
-      return val.length > 15 ? val.substring(0, 15) + "..." : val;
+      return val.length > 15 ? val.substring(0, 12) + "..." : val;
     },
 
     // 替换 pm 为上午
