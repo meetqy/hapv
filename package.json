@@ -6,7 +6,7 @@
   "description": "electron 开发的一个可以播放,下载国内主流视频的播放器。A player developed by electron that can play and download domestic mainstream video.",
   "scripts": {
     "build:win": "vue-cli-service electron:build --windows",
-    "build:mac": "vue-cli-service electron:build --macos",
+    "build:mac": "rm -rf dist_electron && vue-cli-service electron:build --macos",
     "start": "vue-cli-service electron:serve"
   },
   "main": "background.js",

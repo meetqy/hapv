@@ -19,6 +19,7 @@ electron 开发的一个可以播放,下载国内主流视频的播放器。A pl
 
 - Electron
 - Vue
+- Vuex
 - vue-cli-plugin-electron-builder
 - Element
 
@@ -42,7 +43,7 @@ npm install
 npm start
 ```
 
-## 原理
+## 播放视频原理
 
 1. 利用`electron`框架，返回 web 页面
 2. 页面中嵌入 webview，url 为各平台官网
