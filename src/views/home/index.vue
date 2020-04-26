@@ -218,6 +218,7 @@ export default {
         return this.base.analysis;
       },
       set(val) {
+        this.webview.reload();
         this.$store.commit("base/setAnalysis", val);
       }
     }
