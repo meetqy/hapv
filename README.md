@@ -4,7 +4,9 @@ electron 开发的一个可以播放,下载国内主流视频的播放器。A pl
 
 ## 下载
 
-- [下载体验](https://gitee.com/meetqy/hapv/releases)
+- [mac 下载体验](https://gitee.com/meetqy/hapv/releases)
+
+> windows 打包出现意外问题，暂不提供下载。可拉取代码自行打包。
 
 ## 界面
 
