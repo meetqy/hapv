@@ -64,7 +64,7 @@
       size="38%"
       class="drawer"
     >
-      <div class="drawer-body">
+      <div class="drawer-body" v-if="playLog.length">
         <p v-for="item in playLog" :key="item.url">
           <span style="color:#909399">{{ replaceTime(item.visitDate) }}</span>
           <span
@@ -75,6 +75,12 @@
           </span>
           <span :title="item.title">{{ showPlayLogTitle(item.title) }}</span>
         </p>
+      </div>
+      <div v-else class="not-play-log">
+        <div>
+          <i class="el-icon-tableware" style="font-size: 100px"></i>
+          <span style="margin-top: 40px">你饿不饿啊</span>
+        </div>
       </div>
     </el-drawer>
 
@@ -90,8 +96,8 @@ import platform from "../../config/platform";
 export default {
   data() {
     return {
-      drawer: false,
-      isCheckPageBtn: false,
+      drawer: false, // 播放记录
+      isCheckPageBtn: false, // 解决前进后退和监听页面加载完成冲突问题。如果是前进后退页面，页面监听不加入历史记录
       webview: ""
     };
   },
@@ -268,6 +274,25 @@ export default {
   webview {
     width: 100%;
     height: 100%;
+  }
+}
+
+.not-play-log {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  > div {
+    margin-top: -175px;
+    width: 250px;
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-size: 40px;
+    color: #c0c4cc;
   }
 }
 </style>
