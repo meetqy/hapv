@@ -21,5 +21,13 @@ export default [
     name: "优酷",
     rule: `(v\.youku\.com\/v_nextstage\/)|(v\.youku\.com\/v_show\/)`,
     themeColor: "#0d9bff"
+  },
+  // https://www.mgtv.com/b/330994/7823556.html?fpa=15801&fpos=2&lastp=ch_home
+  // https://www.mgtv.com/b/337155/7965280.html?fpa=15801&fpos=3&lastp=ch_home
+  {
+    site: "https://www.mgtv.com/",
+    name: "芒果TV",
+    rule: `mgtv\.com\/b`,
+    themeColor: "#ff5f00"
   }
 ];
