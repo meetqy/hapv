@@ -2,6 +2,10 @@
 
 electron 开发的一个可以播放,下载国内主流视频的播放器。A player developed by electron that can play and download domestic mainstream video.
 
+## 介绍
+
+项目想法来源于[ivideo](https://github.com/phobal/ivideo)（目前用不了了）。另外增加了下载视频功能。
+
 ## 下载
 
 - [mac 下载体验](https://gitee.com/meetqy/hapv/releases)
