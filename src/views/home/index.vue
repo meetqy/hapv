@@ -28,6 +28,7 @@
         >
         </el-button>
       </template>
+
       <template v-slot:right>
         <el-select size="mini" v-model="platformValue" placeholder="选择平台">
           <el-option
@@ -83,6 +84,7 @@
           </el-link>
         </p>
       </div>
+
       <div v-else class="not-play-log">
         <div>
           <i class="el-icon-tableware" style="font-size: 100px"></i>
@@ -91,7 +93,10 @@
       </div>
     </el-drawer>
 
-    <el-main>
+    <el-main
+      v-loading="pageLoading"
+      element-loading-background="rgba(0, 0, 0, 0.8)"
+    >
       <webview :src="nowsite" id="webview"></webview>
     </el-main>
   </el-container>
@@ -105,7 +110,8 @@ export default {
     return {
       drawer: false, // 播放记录
       isCheckPageBtn: false, // 解决前进后退和监听页面加载完成冲突问题。如果是前进后退页面，页面监听不加入历史记录
-      webview: ""
+      webview: "",
+      pageLoading: true
     };
   },
 
@@ -117,6 +123,7 @@ export default {
     });
 
     this.webview = document.getElementById("webview");
+    // 当导航结束时触发.
     this.webview.addEventListener("did-navigate", (status, newURL) => {
       if (this.isCheckPageBtn) return (this.isCheckPageBtn = false);
       // console.log(webview.getURL(), "webview");
@@ -124,6 +131,24 @@ export default {
         id: this.platformValue,
         nowsite: this.webview.getURL()
       });
+    });
+
+    // 导航加载完成时触发
+    this.webview.addEventListener("did-finish-load", e => {
+      // console.log("did-finish-load");
+      this.pageLoading = false;
+    });
+
+    // 当用户或page尝试开始导航时触发.它能在 window.location 变化或者用户点击连接的时候触发.
+    this.webview.addEventListener("will-navigate", e => {
+      // console.log("will-navigate");
+      this.pageLoading = true;
+    });
+
+    // 当用户或page尝试开始导航时触发.它能在 window.location 变化或者用户点击连接的时候触发.
+    this.webview.addEventListener("new-window", e => {
+      // console.log("new-window");
+      this.pageLoading = true;
     });
   },
 
