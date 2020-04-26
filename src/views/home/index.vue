@@ -208,6 +208,7 @@ export default {
         return this.base.platform;
       },
       set(val) {
+        this.pageLoading = true;
         this.$store.commit("base/setPlatform", val);
       }
     },
