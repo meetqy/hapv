@@ -93,10 +93,10 @@
       </div>
     </el-drawer>
 
-    <el-main
-      v-loading="pageLoading"
-      element-loading-background="rgba(0, 0, 0, 0.8)"
-    >
+    <el-main>
+      <div id="loading" v-if="pageLoading">
+        <embed :src="loadingSVG" style="background: transparent" />
+      </div>
       <webview :src="nowsite" id="webview"></webview>
     </el-main>
   </el-container>
@@ -105,13 +105,15 @@
 <script>
 import Header from "@/components/header";
 import platform from "../../config/platform";
+import loadingSVG from "../../assets/loading-1.svg";
 export default {
   data() {
     return {
       drawer: false, // 播放记录
       isCheckPageBtn: false, // 解决前进后退和监听页面加载完成冲突问题。如果是前进后退页面，页面监听不加入历史记录
       webview: "",
-      pageLoading: true
+      pageLoading: true,
+      loadingSVG
     };
   },
 
@@ -133,7 +135,7 @@ export default {
       });
     });
 
-    // 导航加载完成时触发
+    // 在导航加载完成时触发，也就是tab 的 spinner停止spinning，并且加载事件处理.
     this.webview.addEventListener("did-finish-load", e => {
       // console.log("did-finish-load");
       this.pageLoading = false;
@@ -332,6 +334,18 @@ export default {
   webview {
     width: 100%;
     height: 100%;
+  }
+
+  #loading {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.8);
   }
 }
 </style>
