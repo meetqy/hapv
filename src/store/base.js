@@ -81,8 +81,8 @@ const base = {
           };
 
           platform[val.site] = {
-            ...tempJson,
-            ...cache.config.platform[val.site]
+            ...cache.config.platform[val.site],
+            ...tempJson
           };
         });
       } else {
