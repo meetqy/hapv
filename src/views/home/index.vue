@@ -67,13 +67,17 @@
       <div class="drawer-body" v-if="playLog.length">
         <p v-for="item in playLog" :key="item.url">
           <span style="color:#909399">{{ replaceTime(item.visitDate) }}</span>
-          <span
-            class="platform"
-            :style="{ color: platform[item.platformSite].themeColor }"
-          >
-            {{ platform[item.platformSite].name }}
-          </span>
-          <span :title="item.title">{{ showPlayLogTitle(item.title) }}</span>
+          <el-link :underline="false" :href="item.platform" target="_blank">
+            <span
+              class="platform"
+              :style="{ color: platform[item.platformSite].themeColor }"
+            >
+              {{ platform[item.platformSite].name }}
+            </span>
+          </el-link>
+          <el-link :underline="false" :href="item.url" target="_blank">
+            <span :title="item.title">{{ showPlayLogTitle(item.title) }}</span>
+          </el-link>
         </p>
       </div>
       <div v-else class="not-play-log">
@@ -197,6 +201,7 @@ export default {
       });
     },
 
+    // 跳转页面
     s_navigate(data) {
       this.$store.commit("base/setNowsite", {
         id: this.platformValue,
@@ -214,6 +219,7 @@ export default {
       if (val.indexOf("pm") > -1) return val.replace("pm", "下午");
     },
 
+    // 前进后退
     goTo(num) {
       this.isCheckPageBtn = true;
       this.$store.commit("base/setNowsiteToBtn", {
@@ -268,31 +274,31 @@ export default {
       width: 100px;
     }
   }
+
+  .not-play-log {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    > div {
+      margin-top: -175px;
+      width: 250px;
+      height: 250px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      font-size: 40px;
+      color: #c0c4cc;
+    }
+  }
 }
 
 .el-main {
   webview {
     width: 100%;
     height: 100%;
-  }
-}
-
-.not-play-log {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  > div {
-    margin-top: -175px;
-    width: 250px;
-    height: 250px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    font-size: 40px;
-    color: #c0c4cc;
   }
 }
 </style>
