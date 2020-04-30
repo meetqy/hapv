@@ -141,17 +141,23 @@ export default {
       this.pageLoading = false;
     });
 
-    // 当用户或page尝试开始导航时触发.它能在 window.location 变化或者用户点击连接的时候触发.
-    this.webview.addEventListener("will-navigate", e => {
+    // // 当用户或page尝试开始导航时触发.它能在 window.location 变化或者用户点击连接的时候触发.
+    // this.webview.addEventListener("will-navigate", e => {
+    //   // console.log("will-navigate");
+    //   this.pageLoading = true;
+    // });
+
+    // 开始加载时触发.
+    this.webview.addEventListener("did-start-loading", e => {
       // console.log("will-navigate");
       this.pageLoading = true;
     });
 
-    // 当用户或page尝试开始导航时触发.它能在 window.location 变化或者用户点击连接的时候触发.
-    this.webview.addEventListener("new-window", e => {
-      // console.log("new-window");
-      this.pageLoading = true;
-    });
+    // // 当用户或page尝试开始导航时触发.它能在 window.location 变化或者用户点击连接的时候触发.
+    // this.webview.addEventListener("new-window", e => {
+    //   // console.log("new-window");
+    //   this.pageLoading = true;
+    // });
   },
 
   components: {
