@@ -7,6 +7,8 @@ import {
   createProtocol
   /* installVueDevtools */
 } from "vue-cli-plugin-electron-builder/lib";
+import config from "./config";
+console.log(config);
 
 const { spawn, exec } = require("child_process");
 

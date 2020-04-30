@@ -80,9 +80,10 @@ const base = {
             historysite: [val.site]
           };
 
+          // console.log(cache.config.platform[val.site]);
           platform[val.site] = {
-            ...cache.config.platform[val.site],
-            ...tempJson
+            ...tempJson,
+            ...cache.config.platform[val.site]
           };
         });
       } else {
