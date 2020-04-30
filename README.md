@@ -45,6 +45,26 @@ npm install
 npm start
 ```
 
+## 项目结构
+
+```tree
+src
+├─App.vue
+├─background.js // electron后台文件
+├─element-variables.scss
+├─main.js
+├─views
+├─store
+├─router
+├─plugins
+├─config
+|   ├─analysis.js // 解释视频的配置文件
+|   ├─index.js
+|   └platform.js  // 各大视频平台url，视频解析规则的配置文件
+├─components
+├─assets
+```
+
 ## 播放视频原理
 
 1. 利用`electron`框架，返回 web 页面
