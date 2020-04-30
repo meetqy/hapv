@@ -29,5 +29,11 @@ export default [
     name: "芒果TV",
     rule: `mgtv\.com\/b`,
     themeColor: "#ff5f00"
+  },
+  {
+    site: "https://www.le.com/",
+    name: "乐视TV",
+    rule: `le\.com\/ptv\/vplay\/`,
+    themeColor: "#ff5f00"
   }
 ];
