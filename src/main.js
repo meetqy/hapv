@@ -5,7 +5,6 @@ import store from "./store";
 import { ipcRenderer } from "electron";
 import moment from "moment";
 import "./plugins/element.js";
-import VideoPlayer from 'vue-video-player'
 
 Vue.prototype.$ipc = ipcRenderer;
 Vue.prototype.$moment = moment;
