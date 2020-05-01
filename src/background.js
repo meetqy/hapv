@@ -1,6 +1,12 @@
 "use strict";
 
-import { app, protocol, BrowserWindow, ipcMain } from "electron";
+import {
+  app,
+  protocol,
+  BrowserWindow,
+  ipcMain,
+  globalShortcut
+} from "electron";
 import os from "os";
 import path from "path";
 import {
@@ -62,6 +68,10 @@ function createWindow() {
     win.loadURL("app://./index.html");
   }
 
+  globalShortcut.register("ESC", () => {
+    win.setFullScreen(false);
+  });
+
   win.on("closed", e => {
     win = null;
   });
@@ -115,7 +125,7 @@ app.on("web-contents-created", (e, webContents) => {
       if (url.match(val.rule)) return val;
     });
 
-    if (tempConfig) {
+    if (tempConfig && tempConfig.length) {
       exec(`curl ${url}`, (err, stdout, stderr) => {
         let title = stdout.match(/<title>.*?<\/title>/g);
         ipcEvent.sender.send("home", {

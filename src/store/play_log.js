@@ -8,6 +8,7 @@ const play_log = {
       /*
     {
       url: "", // 视频地址
+      type: video | web, // video: 视频播放记录  web: 播放记录
       visitDate: "2019-09-11", // 访问时间
       title: "" // 视频title
       playTime: "00:00:00" // 播放时间  播放到哪里下次继续播放

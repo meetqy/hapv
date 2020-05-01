@@ -54,7 +54,6 @@ export default {
   overflow: hidden;
 }
 .el-main {
-  margin-top: 60px;
   padding: 0 !important;
   overflow: hidden !important;
 }

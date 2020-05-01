@@ -1,6 +1,6 @@
 <template>
   <el-container>
-    <Header>
+    <Header :visible="showHeader">
       <template v-slot:left>
         <!-- <el-link type="primary" @click="drawer = true">历史记录</el-link> -->
         <el-button @click="drawer = !drawer" size="mini">播放记录</el-button>
@@ -93,7 +93,7 @@
       </div>
     </el-drawer>
 
-    <el-main>
+    <el-main :style="{ 'margin-top': showHeader ? '60px' : 0 }">
       <div id="loading" v-if="pageLoading">
         <embed :src="loadingSVG" style="background: transparent" />
       </div>
@@ -109,6 +109,7 @@ import loadingSVG from "../../assets/loading-1.svg";
 export default {
   data() {
     return {
+      showHeader: true,
       drawer: false, // 播放记录
       isCheckPageBtn: false, // 解决前进后退和监听页面加载完成冲突问题。如果是前进后退页面，页面监听不加入历史记录
       webview: "",
@@ -118,6 +119,16 @@ export default {
   },
 
   mounted() {
+    window.addEventListener(
+      "keyup",
+      e => {
+        if (e.keyCode === 27) {
+          this.showHeader = true;
+        }
+      },
+      true
+    );
+
     // 监听后端发送的消息
     this.$ipc.on("home", (event, data) => {
       // console.log(data);
@@ -125,6 +136,16 @@ export default {
     });
 
     this.webview = document.getElementById("webview");
+
+    // setInterval(() => {
+    //   let nowSrc = this.webview.src;
+    //   let tempPlatform = Object.keys(this.platform).filter(key => {
+    //     if (nowSrc.match(this.platform[key].rule)) return this.platform[key];
+    //   });
+
+    //   if (tempPlatform && tempPlatform.length) this.showHeader = false;
+    // }, 2000);
+
     // 当导航结束时触发.
     this.webview.addEventListener("did-navigate", (status, newURL) => {
       if (this.isCheckPageBtn) return (this.isCheckPageBtn = false);
@@ -149,6 +170,14 @@ export default {
 
     // 开始加载时触发.
     this.webview.addEventListener("did-start-loading", e => {
+      let nowSrc = e.target.src;
+
+      let tempPlatform = Object.keys(this.platform).filter(key => {
+        if (nowSrc.match(this.platform[key].rule)) return this.platform[key];
+      });
+
+      this.showHeader = !(tempPlatform && tempPlatform.length);
+
       // console.log("will-navigate");
       this.pageLoading = true;
     });
@@ -253,6 +282,7 @@ export default {
     },
 
     showPlayLogTitle(val) {
+      val = val.replace(/\s|\n/g, "");
       return val.length > 15 ? val.substring(0, 12) + "..." : val;
     },
 
@@ -302,6 +332,10 @@ export default {
 .drawer-body {
   padding: 20px;
   p {
+    > span {
+      display: inline-flex;
+      width: 80px;
+    }
     cursor: pointer;
     display: inline-flex;
     align-items: center;
@@ -311,7 +345,8 @@ export default {
     font-size: 14px;
     display: inline-flex;
     .platform {
-      margin-left: 30px;
+      padding-left: 15px;
+      // margin-left: 30px;
       display: inline-block;
       text-align: left;
       width: 100px;
@@ -340,7 +375,7 @@ export default {
 
 .el-main {
   webview {
-    width: 100%;
+    width: calc(100% + 17px);
     height: 100%;
   }
 

@@ -1,63 +1,90 @@
 <template>
-  <el-header>
-    <div class="left">
-      <slot name="left"></slot>
-    </div>
-    <nav class="center">
-      <el-link
-        :underline="false"
-        href="#/"
-        :type="path == '/' ? 'primary' : 'default'"
-      >
-        <p><i class="el-icon-video-play"></i></p>
-        <p>首页</p>
-      </el-link>
-      <el-link
-        href="#/download"
-        :underline="false"
-        :type="path == '/download' ? 'primary' : 'default'"
-      >
-        <p><i class="el-icon-download"></i></p>
-        <p>正在下载</p>
-      </el-link>
-      <el-link
-        :underline="false"
-        href="#/done"
-        :type="path == '/done' ? 'primary' : 'default'"
-      >
-        <p><i class="el-icon-circle-check"></i></p>
-        <p>已完成</p>
-      </el-link>
-    </nav>
-    <div class="right">
-      <slot name="right"></slot>
-    </div>
-  </el-header>
+  <div
+    class="header-box"
+    @mousemove="status = true"
+    @mouseleave="status = visible"
+  >
+    <el-header v-if="status">
+      <div class="left">
+        <slot name="left"></slot>
+      </div>
+      <nav class="center">
+        <el-link
+          :underline="false"
+          href="#/"
+          :type="path == '/' ? 'primary' : 'default'"
+        >
+          <p><i class="el-icon-video-play"></i></p>
+          <p>首页</p>
+        </el-link>
+        <el-link
+          href="#/download"
+          :underline="false"
+          :type="path == '/download' ? 'primary' : 'default'"
+        >
+          <p><i class="el-icon-download"></i></p>
+          <p>正在下载</p>
+        </el-link>
+        <el-link
+          :underline="false"
+          href="#/done"
+          :type="path == '/done' ? 'primary' : 'default'"
+        >
+          <p><i class="el-icon-circle-check"></i></p>
+          <p>已完成</p>
+        </el-link>
+      </nav>
+      <div class="right">
+        <slot name="right"></slot>
+      </div>
+    </el-header>
+    <el-header v-else class="transparent"></el-header>
+  </div>
 </template>
 
 <script>
 export default {
+  props: {
+    visible: {
+      type: Boolean,
+      default: true
+    }
+  },
   data() {
     return {
       path: "/", // 当前路由
+      status: true
     };
+  },
+  watch: {
+    visible(val) {
+      this.status = val;
+    }
   },
   mounted() {
     this.path = this.$route.path;
   },
+  methods: {
+    handleMousemove() {
+      console.log(23);
+    }
+  }
 };
 </script>
 
 <style lang="scss" scoped>
-.el-header {
-  z-index: 99999;
-  -webkit-app-region: drag;
-  -webkit-user-select: none;
-  padding-left: 85px;
+.header-box {
   width: 100%;
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 99999;
+  -webkit-app-region: drag;
+  -webkit-user-select: none;
+}
+
+.el-header {
+  padding-left: 85px;
   background-color: #e3e7ea;
   display: flex;
   align-items: center;
@@ -86,5 +113,9 @@ export default {
   .right {
     justify-content: flex-end;
   }
+}
+
+.transparent {
+  background-color: transparent;
 }
 </style>
