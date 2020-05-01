@@ -1,7 +1,7 @@
 {
   "name": "hapv",
   "productName": "hapv",
-  "version": "0.2.4-alpha",
+  "version": "0.2.5-alpha",
   "private": false,
   "description": "electron 开发的一个可以播放,下载国内主流视频的播放器。A player developed by electron that can play and download domestic mainstream video.",
   "scripts": {
