@@ -8,7 +8,6 @@ import {
   /* installVueDevtools */
 } from "vue-cli-plugin-electron-builder/lib";
 import config from "./config";
-console.log(config);
 
 const { spawn, exec } = require("child_process");
 
@@ -111,7 +110,11 @@ app.on("web-contents-created", (e, webContents) => {
       return ipcEvent.sender.send("err", "page address => about:blank");
     }
 
-    if (url.match(videoConfig.rule)) {
+    let tempConfig = config.platform.filter(val => {
+      if (url.match(val.rule)) return val;
+    });
+
+    if (tempConfig) {
       exec(`curl ${url}`, (err, stdout, stderr) => {
         let title = stdout.match(/<title>.*?<\/title>/g);
         ipcEvent.sender.send("home", {
@@ -133,6 +136,29 @@ app.on("web-contents-created", (e, webContents) => {
         data: url
       });
     }
+
+    // if (url.match(videoConfig.rule)) {
+    // exec(`curl ${url}`, (err, stdout, stderr) => {
+    //   let title = stdout.match(/<title>.*?<\/title>/g);
+    //   ipcEvent.sender.send("home", {
+    //     method: "s_play_log",
+    //     data: {
+    //       url,
+    //       title: title[0].replace(/<title>|<\/title>/g, ""),
+    //       platformSite: videoConfig.site
+    //     }
+    //   });
+    // });
+    // ipcEvent.sender.send("home", {
+    //   method: "s_navigate",
+    //   data: videoConfig.analysis + url
+    // });
+    // } else {
+    // ipcEvent.sender.send("home", {
+    //   method: "s_navigate",
+    //   data: url
+    // });
+    // }
   });
 });
 
