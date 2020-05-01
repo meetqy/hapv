@@ -30,7 +30,13 @@
       </template>
 
       <template v-slot:right>
-        <el-select size="mini" v-model="platformValue" placeholder="选择平台">
+        <el-select
+          @focus="showHeader = true"
+          @blur="showHeader = false"
+          size="mini"
+          v-model="platformValue"
+          placeholder="选择平台"
+        >
           <el-option
             v-for="(val, key) in platform"
             :key="key"
@@ -45,6 +51,8 @@
           size="mini"
           v-model="analysisValue"
           placeholder="选择线路"
+          @focus="showHeader = true"
+          @blur="showHeader = false"
         >
           <el-option
             v-for="(val, key) in analysis"

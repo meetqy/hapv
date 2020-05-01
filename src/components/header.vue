@@ -78,7 +78,7 @@ export default {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 99999;
+  z-index: 2000;
   -webkit-app-region: drag;
   -webkit-user-select: none;
 }
