@@ -110,6 +110,7 @@ app.on("web-contents-created", (e, webContents) => {
       return ipcEvent.sender.send("err", "page address => about:blank");
     }
 
+    // 判断所有平台
     let tempConfig = config.platform.filter(val => {
       if (url.match(val.rule)) return val;
     });
