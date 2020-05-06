@@ -1,6 +1,6 @@
 <template>
   <el-container>
-    <Header :visible="showHeader">
+    <Header :visible="showHeader" @change="changeStatus">
       <template v-slot:left>
         <!-- <el-link type="primary" @click="drawer = true">历史记录</el-link> -->
         <el-button @click="drawer = !drawer" size="mini">播放记录</el-button>
@@ -30,13 +30,7 @@
       </template>
 
       <template v-slot:right>
-        <el-select
-          @focus="showHeader = true"
-          @blur="showHeader = false"
-          size="mini"
-          v-model="platformValue"
-          placeholder="选择平台"
-        >
+        <el-select size="mini" v-model="platformValue" placeholder="选择平台">
           <el-option
             v-for="(val, key) in platform"
             :key="key"
@@ -51,8 +45,6 @@
           size="mini"
           v-model="analysisValue"
           placeholder="选择线路"
-          @focus="showHeader = true"
-          @blur="showHeader = false"
         >
           <el-option
             v-for="(val, key) in analysis"
@@ -120,7 +112,8 @@ export default {
       showHeader: true,
       drawer: false, // 播放记录
       isCheckPageBtn: false, // 解决前进后退和监听页面加载完成冲突问题。如果是前进后退页面，页面监听不加入历史记录
-      webview: "",
+      webview: "", // webview实例
+      webviewSrc: "", // webview地址
       pageLoading: true,
       loadingSVG
     };
@@ -144,15 +137,6 @@ export default {
     });
 
     this.webview = document.getElementById("webview");
-
-    // setInterval(() => {
-    //   let nowSrc = this.webview.src;
-    //   let tempPlatform = Object.keys(this.platform).filter(key => {
-    //     if (nowSrc.match(this.platform[key].rule)) return this.platform[key];
-    //   });
-
-    //   if (tempPlatform && tempPlatform.length) this.showHeader = false;
-    // }, 2000);
 
     // 当导航结束时触发.
     this.webview.addEventListener("did-navigate", (status, newURL) => {
@@ -178,14 +162,7 @@ export default {
 
     // 开始加载时触发.
     this.webview.addEventListener("did-start-loading", e => {
-      let nowSrc = e.target.src;
-
-      let tempPlatform = Object.keys(this.platform).filter(key => {
-        if (nowSrc.match(this.platform[key].rule)) return this.platform[key];
-      });
-
-      this.showHeader = !(tempPlatform && tempPlatform.length);
-
+      this.webviewSrc = e.target.src;
       // console.log("will-navigate");
       this.pageLoading = true;
     });
@@ -269,6 +246,23 @@ export default {
   },
 
   methods: {
+    // 是否是播放界面
+    isVideoPage() {
+      let { webviewSrc } = this;
+      let tempPlatform = Object.keys(this.platform).filter(key => {
+        if (webviewSrc.match(this.platform[key].rule)) {
+          return this.platform[key];
+        }
+      });
+
+      return tempPlatform.length ? true : false;
+    },
+
+    // 是否显示header
+    changeStatus(data) {
+      this.showHeader = data;
+    },
+
     s_play_log({ url, title, platformSite }) {
       this.$store.commit("play_log/add", {
         url,
@@ -285,11 +279,12 @@ export default {
       });
     },
 
+    // 设置选中平台
     setPlatformValue(val) {
-      console.log(val);
       this.$store.commit("base/setPlatform", val);
     },
 
+    // 播放记录标题
     showPlayLogTitle(val) {
       val = val.replace(/\s|\n/g, "");
       return val.length > 15 ? val.substring(0, 12) + "..." : val;
@@ -310,6 +305,7 @@ export default {
       });
     },
 
+    // 判断前进后退按钮是否可用
     isShowBtn(num) {
       let item = this.platform[this.platformValue];
       if (!item) return false;

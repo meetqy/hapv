@@ -1,9 +1,5 @@
 <template>
-  <div
-    class="header-box"
-    @mousemove="status = true"
-    @mouseleave="status = visible"
-  >
+  <div class="header-box" @dblclick="fullscreen">
     <el-header v-if="status">
       <div class="left">
         <slot name="left"></slot>
@@ -63,10 +59,23 @@ export default {
   },
   mounted() {
     this.path = this.$route.path;
+
+    // 监听后端发送的消息
+    this.$ipc.on("header", (event, data) => {
+      // console.log(data);
+      this[data.method](data.data);
+    });
   },
   methods: {
-    handleMousemove() {
-      console.log(23);
+    fullscreen() {
+      this.$ipc.send("hapv", {
+        method: "fullscreen"
+      });
+    },
+
+    // 全屏状态
+    change_status(args) {
+      this.$emit("change", !args);
     }
   }
 };
