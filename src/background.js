@@ -68,8 +68,13 @@ function createWindow() {
     win.loadURL("app://./index.html");
   }
 
+  // 取消全屏
   globalShortcut.register("ESC", () => {
     win.setFullScreen(false);
+    ipcEvent.sender.send("header", {
+      method: "change_status",
+      data: false
+    });
   });
 
   win.on("closed", e => {
@@ -147,29 +152,6 @@ app.on("web-contents-created", (e, webContents) => {
         data: url
       });
     }
-
-    // if (url.match(videoConfig.rule)) {
-    // exec(`curl ${url}`, (err, stdout, stderr) => {
-    //   let title = stdout.match(/<title>.*?<\/title>/g);
-    //   ipcEvent.sender.send("home", {
-    //     method: "s_play_log",
-    //     data: {
-    //       url,
-    //       title: title[0].replace(/<title>|<\/title>/g, ""),
-    //       platformSite: videoConfig.site
-    //     }
-    //   });
-    // });
-    // ipcEvent.sender.send("home", {
-    //   method: "s_navigate",
-    //   data: videoConfig.analysis + url
-    // });
-    // } else {
-    // ipcEvent.sender.send("home", {
-    //   method: "s_navigate",
-    //   data: url
-    // });
-    // }
   });
 });
 
@@ -219,5 +201,13 @@ if (isDevelopment) {
 let ipcMethod = {
   video_config(arg) {
     videoConfig = arg.data;
+  },
+
+  fullscreen() {
+    win.setFullScreen(true);
+    ipcEvent.sender.send("header", {
+      method: "change_status",
+      data: true
+    });
   }
 };
