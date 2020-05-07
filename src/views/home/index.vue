@@ -3,7 +3,7 @@
     <Header :visible="showHeader" @change="changeStatus">
       <template v-slot:left>
         <!-- <el-link type="primary" @click="drawer = true">历史记录</el-link> -->
-        <el-button @click="drawer = !drawer" size="mini">播放记录</el-button>
+        <!-- <el-button @click="drawer = !drawer" size="mini">播放记录</el-button> -->
         <el-button
           icon="el-icon-caret-left"
           @click="goTo(-1)"
@@ -128,7 +128,7 @@ export default {
     this.webview = document.getElementById("webview");
 
     // 加载完成触发. 这个包含当前文档的导航和副框架的文档加载，但是不包含异步资源加载.
-    this.webview.addEventListener("load-commit", url => {
+    this.webview.addEventListener("load-commit", e => {
       setTimeout(() => {
         this.pageLoading = false;
       }, 1000);
@@ -136,14 +136,14 @@ export default {
 
     // 当页内导航发生时触发.当业内导航发生时，page url改变了，但是不会跳出 page
     this.webview.addEventListener("will-navigate", e => {
-      this.navigateTo(e.url);
       // console.log("will-navigate");
+      this.navigateTo(e.url);
     });
 
     // 在 guest page 试图打开一个新的浏览器窗口时触发.
     this.webview.addEventListener("new-window", e => {
-      this.navigateTo(e.url);
       // console.log("new-window");
+      this.navigateTo(e.url);
     });
   },
 

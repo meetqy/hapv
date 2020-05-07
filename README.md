@@ -90,6 +90,8 @@ src
 - [x] 重构 background.js
 - [x] 页面加载 loading 显示优化
 - [x] 页面 loading 用户体验优化
+- [x] 暂时关闭播放记录
+- [x] 优化访问速度
 
 * [版本记录](./版本记录.md)
 
