@@ -40,7 +40,11 @@
           </el-option>
         </el-select>
 
-        <el-select
+        <div style="margin-left: 20px" v-if="playBtn">
+          <el-button size="mini" type="primary">立即播放</el-button>
+        </div>
+
+        <!-- <el-select
           class="line"
           size="mini"
           v-model="analysisValue"
@@ -53,11 +57,11 @@
             :value="key"
           >
           </el-option>
-        </el-select>
+        </el-select> -->
       </template>
     </Header>
 
-    <el-drawer
+    <!-- <el-drawer
       direction="ltr"
       title="播放记录"
       :visible.sync="drawer"
@@ -91,7 +95,7 @@
           <span style="margin-top: 40px">你饿不饿啊</span>
         </div>
       </div>
-    </el-drawer>
+    </el-drawer> -->
 
     <el-main :style="{ 'margin-top': showHeader ? '60px' : 0 }">
       <div id="loading" v-if="pageLoading">
@@ -114,6 +118,7 @@ export default {
       isCheckPageBtn: false, // 解决前进后退和监听页面加载完成冲突问题。如果是前进后退页面，页面监听不加入历史记录
       webview: "", // webview实例
       pageLoading: true,
+      playBtn: false,
       loadingSVG
     };
   },
@@ -121,7 +126,7 @@ export default {
   mounted() {
     // 监听后端发送的消息
     this.$ipc.on("home", (event, data) => {
-      // console.log(data);
+      console.log(data);
       this[data.method](data.data);
     });
 
@@ -136,13 +141,11 @@ export default {
 
     // 当页内导航发生时触发.当业内导航发生时，page url改变了，但是不会跳出 page
     this.webview.addEventListener("will-navigate", e => {
-      // console.log("will-navigate");
       this.navigateTo(e.url);
     });
 
     // 在 guest page 试图打开一个新的浏览器窗口时触发.
     this.webview.addEventListener("new-window", e => {
-      // console.log("new-window");
       this.navigateTo(e.url);
     });
   },
@@ -152,7 +155,11 @@ export default {
   },
 
   watch: {
-    nowsite() {
+    // 页面发生改变
+    nowsite(val) {
+      if (this.isVideoPage(val)) {
+        this.playBtn = true;
+      }
       this.pageLoading = true;
     }
   },
@@ -235,9 +242,10 @@ export default {
     navigateTo(url) {
       let result = url;
       // 如果是播放界面直接跳转到解析界面
-      if (this.isVideoPage(url)) {
-        result = this.analysisValue + url;
-      }
+      // if (this.isVideoPage(url)) {
+      //   result = this.analysisValue + url;
+      // }
+
       if (!this.isCheckPageBtn) {
         this.$store.commit("base/setNowsite", {
           id: this.platformValue,

@@ -95,10 +95,10 @@ app.on("activate", () => {
 
 ipcMain.on("hapv", (event, data) => {
   // console.log(data);
+  ipcEvent = event;
   if (typeof data === "string") return;
   let method = data.method.replace("/", "_");
   ipcMethod[method](data);
-  ipcEvent = event;
 });
 
 // This method will be called when Electron has finished
