@@ -113,23 +113,12 @@ export default {
       drawer: false, // 播放记录
       isCheckPageBtn: false, // 解决前进后退和监听页面加载完成冲突问题。如果是前进后退页面，页面监听不加入历史记录
       webview: "", // webview实例
-      webviewSrc: "", // webview地址
       pageLoading: true,
       loadingSVG
     };
   },
 
   mounted() {
-    window.addEventListener(
-      "keyup",
-      e => {
-        if (e.keyCode === 27) {
-          this.showHeader = true;
-        }
-      },
-      true
-    );
-
     // 监听后端发送的消息
     this.$ipc.on("home", (event, data) => {
       // console.log(data);
@@ -138,40 +127,24 @@ export default {
 
     this.webview = document.getElementById("webview");
 
-    // 当导航结束时触发.
-    this.webview.addEventListener("did-navigate", (status, newURL) => {
-      if (this.isCheckPageBtn) return (this.isCheckPageBtn = false);
-      // console.log(webview.getURL(), "webview");
-      this.$store.commit("base/setNowsite", {
-        id: this.platformValue,
-        nowsite: this.webview.getURL()
-      });
+    // 加载完成触发. 这个包含当前文档的导航和副框架的文档加载，但是不包含异步资源加载.
+    this.webview.addEventListener("load-commit", url => {
+      setTimeout(() => {
+        this.pageLoading = false;
+      }, 1000);
     });
 
-    // 在导航加载完成时触发，也就是tab 的 spinner停止spinning，并且加载事件处理.
-    this.webview.addEventListener("did-finish-load", e => {
-      // console.log("did-finish-load");
-      this.pageLoading = false;
-    });
-
-    // // 当用户或page尝试开始导航时触发.它能在 window.location 变化或者用户点击连接的时候触发.
-    // this.webview.addEventListener("will-navigate", e => {
-    //   // console.log("will-navigate");
-    //   this.pageLoading = true;
-    // });
-
-    // 开始加载时触发.
-    this.webview.addEventListener("did-start-loading", e => {
-      this.webviewSrc = e.target.src;
+    // 当页内导航发生时触发.当业内导航发生时，page url改变了，但是不会跳出 page
+    this.webview.addEventListener("will-navigate", e => {
+      this.navigateTo(e.url);
       // console.log("will-navigate");
-      this.pageLoading = true;
     });
 
-    // // 当用户或page尝试开始导航时触发.它能在 window.location 变化或者用户点击连接的时候触发.
-    // this.webview.addEventListener("new-window", e => {
-    //   // console.log("new-window");
-    //   this.pageLoading = true;
-    // });
+    // 在 guest page 试图打开一个新的浏览器窗口时触发.
+    this.webview.addEventListener("new-window", e => {
+      this.navigateTo(e.url);
+      // console.log("new-window");
+    });
   },
 
   components: {
@@ -185,6 +158,10 @@ export default {
         method: "video/config",
         data: val
       });
+    },
+
+    nowsite() {
+      this.pageLoading = true;
     }
   },
 
@@ -247,10 +224,9 @@ export default {
 
   methods: {
     // 是否是播放界面
-    isVideoPage() {
-      let { webviewSrc } = this;
+    isVideoPage(src) {
       let tempPlatform = Object.keys(this.platform).filter(key => {
-        if (webviewSrc.match(this.platform[key].rule)) {
+        if (src.match(this.platform[key].rule)) {
           return this.platform[key];
         }
       });
@@ -263,6 +239,7 @@ export default {
       this.showHeader = data;
     },
 
+    // 保存播放记录
     s_play_log({ url, title, platformSite }) {
       this.$store.commit("play_log/add", {
         url,
@@ -272,11 +249,19 @@ export default {
     },
 
     // 跳转页面
-    s_navigate(data) {
-      this.$store.commit("base/setNowsite", {
-        id: this.platformValue,
-        nowsite: data
-      });
+    navigateTo(url) {
+      let result = url;
+      // 如果是播放界面直接跳转到解析界面
+      if (this.isVideoPage(url)) {
+        result = this.analysisValue + url;
+      }
+      if (!this.isCheckPageBtn) {
+        this.$store.commit("base/setNowsite", {
+          id: this.platformValue,
+          nowsite: result
+        });
+        this.isCheckPageBtn = false;
+      }
     },
 
     // 设置选中平台
