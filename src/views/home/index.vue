@@ -41,7 +41,9 @@
         </el-select>
 
         <div style="margin-left: 20px" v-if="playBtn">
-          <el-button size="mini" type="primary">立即播放</el-button>
+          <el-button size="mini" type="primary" @click="play">
+            立即播放
+          </el-button>
         </div>
 
         <!-- <el-select
@@ -119,22 +121,25 @@ export default {
       webview: "", // webview实例
       pageLoading: true,
       playBtn: false,
-      loadingSVG
+      loadingSVG,
+      timeout: ""
     };
   },
 
   mounted() {
     // 监听后端发送的消息
     this.$ipc.on("home", (event, data) => {
-      console.log(data);
       this[data.method](data.data);
     });
+
+    this.playBtn = this.isVideoPage(this.nowsite);
 
     this.webview = document.getElementById("webview");
 
     // 加载完成触发. 这个包含当前文档的导航和副框架的文档加载，但是不包含异步资源加载.
     this.webview.addEventListener("load-commit", e => {
-      setTimeout(() => {
+      if (this.timeout) return;
+      this.timeout = setTimeout(() => {
         this.pageLoading = false;
       }, 1000);
     });
@@ -236,6 +241,10 @@ export default {
         title,
         platformSite
       });
+    },
+
+    play() {
+      this.$router.push(`/play?url=${this.nowsite}`);
     },
 
     // 跳转页面
