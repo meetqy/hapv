@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Done from "../views/done";
 import Download from "../views/download";
 import Home from "../views/home";
+import Play from "../views/play";
 
 Vue.use(VueRouter);
 
@@ -11,6 +12,11 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home
+  },
+  {
+    path: "/play",
+    name: "Play",
+    component: Play
   },
   {
     path: "/done",

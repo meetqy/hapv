@@ -10,8 +10,16 @@
           href="#/"
           :type="path == '/' ? 'primary' : 'default'"
         >
-          <p><i class="el-icon-video-play"></i></p>
+          <p><i class="el-icon-s-home"></i></p>
           <p>首页</p>
+        </el-link>
+        <el-link
+          :underline="false"
+          href="#/play"
+          :type="path == '/play' ? 'primary' : 'default'"
+        >
+          <p><i class="el-icon-video-play"></i></p>
+          <p>正在播放</p>
         </el-link>
         <el-link
           href="#/download"
