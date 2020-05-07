@@ -84,7 +84,12 @@ src
 
 最近更新：
 
-- 0.3.0-重构-alpha
+- 0.3.0-alpha
+
+- [x] 修改页面跳转逻辑
+- [x] 重构 background.js
+- [x] 页面加载 loading 显示优化
+- [x] 页面 loading 用户体验优化
 
 * [版本记录](./版本记录.md)
 
