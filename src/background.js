@@ -14,24 +14,12 @@ import {
   /* installVueDevtools */
 } from "vue-cli-plugin-electron-builder/lib";
 
-const { spawn, exec } = require("child_process");
-
 const isDevelopment = process.env.NODE_ENV !== "production";
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win;
 let ipcEvent; // ipc监听回调返回的event，便于全局使用
-/*
-当前的视频信息和解析地址
-{
-  site: "https://v.qq.com",
-  name: "腾讯视频",
-  rule: "https://v.qq.com/x/cover/",
-  analysis: 'xxxxx'
-};
-*/
-let videoConfig;
 
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
@@ -157,10 +145,6 @@ if (isDevelopment) {
 
 // ipc模拟接口对应方法
 let ipcMethod = {
-  video_config(arg) {
-    videoConfig = arg.data;
-  },
-
   fullscreen() {
     win.setFullScreen(true);
     ipcEvent.sender.send("header", {

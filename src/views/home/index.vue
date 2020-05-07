@@ -152,14 +152,6 @@ export default {
   },
 
   watch: {
-    video_config(val) {
-      // console.log(val);
-      this.$ipc.send("hapv", {
-        method: "video/config",
-        data: val
-      });
-    },
-
     nowsite() {
       this.pageLoading = true;
     }
@@ -170,15 +162,6 @@ export default {
     nowsite() {
       let platform = this.platform && this.platform[this.platformValue];
       return platform ? platform.nowsite : "";
-    },
-
-    // 发送给后台的信息
-    video_config() {
-      return {
-        ...this.platform[this.platformValue],
-        analysis: this.analysisValue,
-        showHeader: false
-      };
     },
 
     base() {
