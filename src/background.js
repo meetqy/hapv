@@ -13,7 +13,6 @@ import {
   createProtocol
   /* installVueDevtools */
 } from "vue-cli-plugin-electron-builder/lib";
-import config from "./config";
 
 const { spawn, exec } = require("child_process");
 
@@ -112,47 +111,6 @@ ipcMain.on("hapv", (event, data) => {
   let method = data.method.replace("/", "_");
   ipcMethod[method](data);
   ipcEvent = event;
-});
-
-// 拦截iframe中的点击事件
-app.on("web-contents-created", (e, webContents) => {
-  webContents.on("new-window", (event, url) => {
-    event.preventDefault();
-    // 返回对应的url
-    // 如果视频返回解析视频url，反之返回正常url
-    console.log(url, videoConfig.rule, url.match(videoConfig.rule));
-    if (url === "about:blank") {
-      return ipcEvent.sender.send("err", "page address => about:blank");
-    }
-
-    // 判断所有平台
-    let tempConfig = config.platform.filter(val => {
-      if (url.match(val.rule)) return val;
-    });
-
-    if (tempConfig && tempConfig.length) {
-      exec(`curl ${url}`, (err, stdout, stderr) => {
-        let title = stdout.match(/<title>.*?<\/title>/g);
-        ipcEvent.sender.send("home", {
-          method: "s_play_log",
-          data: {
-            url,
-            title: title[0].replace(/<title>|<\/title>/g, ""),
-            platformSite: videoConfig.site
-          }
-        });
-      });
-      ipcEvent.sender.send("home", {
-        method: "s_navigate",
-        data: videoConfig.analysis + url
-      });
-    } else {
-      ipcEvent.sender.send("home", {
-        method: "s_navigate",
-        data: url
-      });
-    }
-  });
 });
 
 // This method will be called when Electron has finished
