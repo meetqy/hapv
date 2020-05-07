@@ -12,7 +12,7 @@ const play_log = {
       visitDate: "2019-09-11", // 访问时间
       title: "" // 视频title
       playTime: "00:00:00" // 播放时间  播放到哪里下次继续播放
-      platformSite: ''
+      platformSite: ''  // 平台地址
     }
     */
     ]
