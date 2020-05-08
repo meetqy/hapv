@@ -35,6 +35,7 @@
           v-for="(item, index) in playLog"
           :key="item.url"
           :class="{ active: index === 0 }"
+          @click="handleTitleClick(item)"
         >
           <span style="color:#909399">{{ replaceTime(item.visitDate) }}</span>
           <el-link :underline="false">
@@ -46,12 +47,9 @@
             </span>
           </el-link>
 
-          <el-button
-            class="title"
-            @click="handleTitleClick(item)"
-            type="text"
-            >{{ showPlayLogTitle(item.title) }}</el-button
-          >
+          <el-button class="title" type="text">{{
+            showPlayLogTitle(item.title)
+          }}</el-button>
         </p>
       </div>
 
@@ -175,11 +173,28 @@ export default {
 
 .drawer-body {
   .active {
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
+    &:hover {
+      border-color: transparent;
+    }
+
+    &::after {
+      content: "◍";
+      color: #409eff;
+      position: absolute;
+      left: 10px;
+      top: 14px;
+    }
+    // box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
   }
   padding: 20px 0;
   p {
-    padding: 0 20px;
+    position: relative;
+    transition: all 400ms ease-in-out;
+    border-bottom: 1px solid transparent;
+    &:hover {
+      border-color: #dcdfe6;
+    }
+    padding-left: 30px;
     > span {
       display: inline-flex;
       width: 80px;
