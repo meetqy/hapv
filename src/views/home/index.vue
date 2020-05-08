@@ -45,21 +45,6 @@
             立即播放
           </el-button>
         </div>
-
-        <!-- <el-select
-          class="line"
-          size="mini"
-          v-model="analysisValue"
-          placeholder="选择线路"
-        >
-          <el-option
-            v-for="(val, key) in analysis"
-            :key="key"
-            :label="val.name"
-            :value="key"
-          >
-          </el-option>
-        </el-select> -->
       </template>
     </Header>
 
@@ -180,16 +165,8 @@ export default {
       return this.$store.state.base;
     },
 
-    // config() {
-    //   return this.base.config;
-    // },
-
     platform() {
       return this.base.config.platform;
-    },
-
-    analysis() {
-      return this.base.config.analysis;
     },
 
     playLog() {
@@ -203,16 +180,6 @@ export default {
       set(val) {
         this.pageLoading = true;
         this.$store.commit("base/setPlatform", val);
-      }
-    },
-
-    analysisValue: {
-      get() {
-        return this.base.analysis;
-      },
-      set(val) {
-        this.webview.reload();
-        this.$store.commit("base/setAnalysis", val);
       }
     }
   },
@@ -234,26 +201,20 @@ export default {
       this.showHeader = data;
     },
 
-    // 保存播放记录
-    s_play_log({ url, title, platformSite }) {
-      this.$store.commit("play_log/add", {
-        url,
-        title,
-        platformSite
-      });
-    },
-
+    // 立即播放
     play() {
-      this.$router.push(`/play?url=${this.nowsite}`);
+      this.$router.push(
+        `/play?url=${
+          this.nowsite
+        }&title=${this.webview.getTitle()}&platformSite=${
+          this.platform[this.platformValue].site
+        }`
+      );
     },
 
     // 跳转页面
     navigateTo(url) {
       let result = url;
-      // 如果是播放界面直接跳转到解析界面
-      // if (this.isVideoPage(url)) {
-      //   result = this.analysisValue + url;
-      // }
 
       if (!this.isCheckPageBtn) {
         this.$store.commit("base/setNowsite", {

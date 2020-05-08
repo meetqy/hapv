@@ -35,7 +35,7 @@ const play_log = {
         return val.url != obj.url;
       });
 
-      data.push({
+      data.unshift({
         ...obj,
         playTime: 0,
         visitDate: moment().format("hh:mm a")
