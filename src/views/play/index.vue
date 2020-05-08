@@ -53,17 +53,15 @@
         </p>
       </div>
 
-      <div v-else class="not-play-log">
-        <div>
-          <i class="el-icon-tableware" style="font-size: 100px"></i>
-        </div>
+      <div v-else class="not-play">
+        <img :src="notData" alt="" />
       </div>
     </el-drawer>
 
     <el-main>
       <webview :src="nowsite" v-if="nowsite"></webview>
       <div v-else class="not-play">
-        <i class="el-icon-tableware" style="font-size: 300px"></i>
+        <img :src="notData" alt="" />
       </div>
     </el-main>
   </el-container>
@@ -71,10 +69,12 @@
 
 <script>
 import Header from "@/components/header";
+import notData from "@/assets/notdata.gif";
 export default {
   data() {
     return {
-      drawer: false // 播放记录
+      drawer: false, // 播放记录
+      notData
     };
   },
   components: {
@@ -172,34 +172,14 @@ export default {
   }
 }
 
-.not-play-log {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  > div {
-    margin-top: -175px;
-    width: 250px;
-    height: 250px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    font-size: 40px;
-    color: #c0c4cc;
-  }
-}
-
 .not-play {
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
-  justify-items: center;
-  i {
-    margin: auto;
-    color: #c0c4cc;
+  img {
+    width: 400px;
+    margin: -178px auto 0 auto;
   }
 }
 
