@@ -62,7 +62,6 @@
     </el-drawer>
 
     <el-main>
-      {{ this.$route.query }}
       <webview :src="nowsite"></webview>
     </el-main>
   </el-container>
