@@ -56,13 +56,15 @@
       <div v-else class="not-play-log">
         <div>
           <i class="el-icon-tableware" style="font-size: 100px"></i>
-          <span style="margin-top: 40px">你饿不饿啊</span>
         </div>
       </div>
     </el-drawer>
 
     <el-main>
-      <webview :src="nowsite"></webview>
+      <webview :src="nowsite" v-if="nowsite"></webview>
+      <div v-else class="not-play">
+        <i class="el-icon-tableware" style="font-size: 300px"></i>
+      </div>
     </el-main>
   </el-container>
 </template>
@@ -167,6 +169,37 @@ export default {
   /deep/ .el-drawer.ltr {
     height: calc(100% - 60px);
     margin-top: 60px;
+  }
+}
+
+.not-play-log {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  > div {
+    margin-top: -175px;
+    width: 250px;
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-size: 40px;
+    color: #c0c4cc;
+  }
+}
+
+.not-play {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  i {
+    margin: auto;
+    color: #c0c4cc;
   }
 }
 

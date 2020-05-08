@@ -314,25 +314,6 @@ export default {
   }
 }
 
-.not-play-log {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  > div {
-    margin-top: -175px;
-    width: 250px;
-    height: 250px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    font-size: 40px;
-    color: #c0c4cc;
-  }
-}
-
 .el-main {
   webview {
     width: calc(100% + 17px);
