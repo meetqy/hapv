@@ -12,7 +12,7 @@ electron 开发的一个可以播放,下载国内主流视频的播放器。A pl
 
 ## 界面
 
-|            \*\*\*            |            \*\*\*            |
+|              -               |              -               |
 | :--------------------------: | :--------------------------: |
 | <img src='./preview/1.png' > | <img src='./preview/4.png' > |
 | <img src='./preview/2.png' > | <img src='./preview/3.png' > |
