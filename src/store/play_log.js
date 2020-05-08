@@ -31,16 +31,17 @@ const play_log = {
     add(state, obj) {
       let { data } = state;
 
-      data = data.filter(val => {
+      let newdata = data.filter(val => {
         return val.url != obj.url;
       });
 
-      data.unshift({
+      newdata.unshift({
         ...obj,
         playTime: 0,
         visitDate: moment().format("hh:mm a")
       });
-      state.data = data;
+
+      state.data = newdata;
 
       this.commit("play_log/saveLocal");
     },

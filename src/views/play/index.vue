@@ -41,7 +41,7 @@
               {{ platform[item.platformSite].name }}
             </span>
           </el-link>
-          <el-link :underline="false" :href="item.url" target="_blank">
+          <el-link :underline="false" :href="item.url">
             <span :title="item.title">{{ showPlayLogTitle(item.title) }}</span>
           </el-link>
         </p>
@@ -133,6 +133,10 @@ export default {
       val = val.replace(/\s|\n/g, "");
       return val.length > 15 ? val.substring(0, 12) + "..." : val;
     }
+
+    // play(url) {
+
+    // }
   }
 };
 </script>

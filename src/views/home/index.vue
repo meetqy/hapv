@@ -131,11 +131,19 @@ export default {
 
     // 当页内导航发生时触发.当业内导航发生时，page url改变了，但是不会跳出 page
     this.webview.addEventListener("will-navigate", e => {
+      console.log("will-navigate", e.url);
+      this.navigateTo(e.url);
+    });
+
+    // 例如在锚链接被电击或DOM hashchange 事件发生时触发.
+    this.webview.addEventListener("did-navigate-in-page", e => {
+      console.log("did-navigate-in-page", e.url);
       this.navigateTo(e.url);
     });
 
     // 在 guest page 试图打开一个新的浏览器窗口时触发.
     this.webview.addEventListener("new-window", e => {
+      console.log("new-window", e.url);
       this.navigateTo(e.url);
     });
   },
