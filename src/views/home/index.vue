@@ -123,7 +123,7 @@ export default {
 
     // 加载完成触发. 这个包含当前文档的导航和副框架的文档加载，但是不包含异步资源加载.
     this.webview.addEventListener("load-commit", e => {
-      if (this.timeout) return;
+      if (this.timeout) clearTimeout(this.timeout);
       this.timeout = setTimeout(() => {
         this.pageLoading = false;
       }, 1000);
