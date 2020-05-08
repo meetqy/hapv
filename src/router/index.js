@@ -17,7 +17,7 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    name: "Home",
+    name: "home",
     component: Home
   },
   {
@@ -27,12 +27,12 @@ const routes = [
   },
   {
     path: "/done",
-    name: "Done",
+    name: "done",
     component: Done
   },
   {
     path: "/download",
-    name: "Download",
+    name: "download",
     component: Download
   }
 ];
