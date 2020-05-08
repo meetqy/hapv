@@ -7,6 +7,13 @@ import Play from "../views/play";
 
 Vue.use(VueRouter);
 
+// const routerPush = VueRouter.prototype.push;
+// VueRouter.prototype.push = function push(location, onResolve, onReject) {
+//   if (onResolve || onReject)
+//     return routerPush.call(this, location, onResolve, onReject);
+//   return routerPush.call(this, location).catch(error => error);
+// };
+
 const routes = [
   {
     path: "/",
@@ -15,7 +22,7 @@ const routes = [
   },
   {
     path: "/play",
-    name: "Play",
+    name: "play",
     component: Play
   },
   {

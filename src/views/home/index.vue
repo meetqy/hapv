@@ -211,13 +211,14 @@ export default {
 
     // 立即播放
     play() {
-      this.$router.push(
-        `/play?url=${
-          this.nowsite
-        }&title=${this.webview.getTitle()}&platformSite=${
-          this.platform[this.platformValue].site
-        }`
-      );
+      this.$router.push({
+        name: "play",
+        query: {
+          url: this.nowsite,
+          title: this.webview.getTitle(),
+          platformSite: this.platform[this.platformValue].site
+        }
+      });
     },
 
     // 跳转页面

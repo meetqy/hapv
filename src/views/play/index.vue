@@ -31,7 +31,11 @@
       class="drawer"
     >
       <div class="drawer-body" v-if="playLog.length">
-        <p v-for="item in playLog" :key="item.url">
+        <p
+          v-for="(item, index) in playLog"
+          :key="item.url"
+          :class="{ active: index === 0 }"
+        >
           <span style="color:#909399">{{ replaceTime(item.visitDate) }}</span>
           <el-link :underline="false">
             <span
@@ -41,9 +45,13 @@
               {{ platform[item.platformSite].name }}
             </span>
           </el-link>
-          <el-link :underline="false" :href="item.url">
-            <span :title="item.title">{{ showPlayLogTitle(item.title) }}</span>
-          </el-link>
+
+          <el-button
+            class="title"
+            @click="handleTitleClick(item)"
+            type="text"
+            >{{ showPlayLogTitle(item.title) }}</el-button
+          >
         </p>
       </div>
 
@@ -56,6 +64,7 @@
     </el-drawer>
 
     <el-main>
+      {{ this.$route.query }}
       <webview :src="nowsite"></webview>
     </el-main>
   </el-container>
@@ -72,12 +81,14 @@ export default {
   components: {
     Header
   },
+
   mounted() {
     let { query } = this.$route;
     if (query && Object.keys(query).length) {
       this.s_play_log(query);
     }
   },
+
   computed: {
     nowsite() {
       if (this.playLog.length) {
@@ -112,7 +123,13 @@ export default {
       }
     }
   },
+
   methods: {
+    // 播放
+    handleTitleClick(item) {
+      this.s_play_log(item);
+    },
+
     // 保存播放记录
     s_play_log({ url, title, platformSite }) {
       this.$store.commit("play_log/add", {
@@ -157,8 +174,12 @@ export default {
 }
 
 .drawer-body {
-  padding: 20px;
+  .active {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
+  }
+  padding: 20px 0;
   p {
+    padding: 0 20px;
     > span {
       display: inline-flex;
       width: 80px;
@@ -178,6 +199,9 @@ export default {
       text-align: left;
       width: 100px;
     }
+  }
+  .title {
+    color: #606266;
   }
 }
 </style>
