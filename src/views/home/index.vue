@@ -2,18 +2,18 @@
   <el-container>
     <Header :visible="showHeader" @change="changeStatus">
       <template v-slot:left>
-        <!-- <el-link type="primary" @click="drawer = true">历史记录</el-link> -->
-        <!-- <el-button @click="drawer = !drawer" size="mini">播放记录</el-button> -->
+        <!-- <el-link type="primary" @click.stop="drawer = true">历史记录</el-link> -->
+        <!-- <el-button @click.stop="drawer = !drawer" size="mini">播放记录</el-button> -->
         <el-button
           icon="el-icon-caret-left"
-          @click="goTo(-1)"
+          @click.stop="goTo(-1)"
           :disabled="isShowBtn(-1)"
           circle
           size="mini"
         >
         </el-button>
         <el-button
-          @click="goTo(1)"
+          @click.stop="goTo(1)"
           :disabled="isShowBtn(1)"
           icon="el-icon-caret-right"
           circle
@@ -21,7 +21,7 @@
         >
         </el-button>
         <el-button
-          @click="webview.reload()"
+          @click.stop="webview.reload()"
           icon="el-icon-refresh-right"
           circle
           size="mini"
@@ -41,7 +41,7 @@
         </el-select>
 
         <div style="margin-left: 20px" v-if="playBtn">
-          <el-button size="mini" type="primary" @click="play">
+          <el-button size="mini" type="primary" @click.stop="play">
             立即播放
           </el-button>
         </div>
@@ -61,7 +61,7 @@
           <span style="color:#909399">{{ replaceTime(item.visitDate) }}</span>
           <el-link
             :underline="false"
-            @click="setPlatformValue(item.platformSite)"
+            @click.stop="setPlatformValue(item.platformSite)"
           >
             <span
               class="platform"

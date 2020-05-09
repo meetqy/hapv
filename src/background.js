@@ -55,17 +55,31 @@ function createWindow() {
     win.loadURL("app://./index.html");
   }
 
-  // 取消全屏
+  // 退出全屏
   globalShortcut.register("ESC", () => {
     win.setFullScreen(false);
-    ipcEvent.sender.send("header", {
-      method: "change_status",
-      data: false
-    });
   });
 
   win.on("closed", e => {
     win = null;
+  });
+
+  // 在的窗口进入全屏状态时候触发.
+  win.on("enter-full-screen", () => {
+    console.log("enter-full-screen");
+    ipcEvent.sender.send("header", {
+      method: "fullscreen",
+      data: true
+    });
+  });
+
+  // 在的窗口退出全屏状态时候触发.
+  win.on("leave-full-screen", () => {
+    console.log("leave-full-screen");
+    ipcEvent.sender.send("header", {
+      method: "fullscreen",
+      data: false
+    });
   });
 }
 
@@ -94,7 +108,7 @@ app.on("activate", () => {
 });
 
 ipcMain.on("hapv", (event, data) => {
-  // console.log(data);
+  console.log(data);
   ipcEvent = event;
   if (typeof data === "string") return;
   let method = data.method.replace("/", "_");
@@ -144,12 +158,4 @@ if (isDevelopment) {
 }
 
 // ipc模拟接口对应方法
-let ipcMethod = {
-  fullscreen() {
-    win.setFullScreen(true);
-    ipcEvent.sender.send("header", {
-      method: "change_status",
-      data: true
-    });
-  }
-};
+let ipcMethod = {};

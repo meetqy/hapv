@@ -1,5 +1,5 @@
 <template>
-  <div class="header-box" @dblclick="fullscreen">
+  <div class="header-box">
     <el-header v-if="status">
       <div class="left">
         <slot name="left"></slot>
@@ -67,20 +67,11 @@ export default {
   },
   mounted() {
     this.path = this.$route.path;
-
-    // 监听后端发送的消息
-    this.$ipc.on("header", (event, data) => {
-      // console.log(data);
-      this[data.method](data.data);
+    this.$ipc.on("header", (e, res) => {
+      this.change_status(res.data);
     });
   },
   methods: {
-    fullscreen() {
-      this.$ipc.send("hapv", {
-        method: "fullscreen"
-      });
-    },
-
     // 全屏状态
     change_status(args) {
       this.$emit("change", !args);

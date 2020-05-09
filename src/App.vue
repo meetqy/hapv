@@ -10,6 +10,9 @@ export default {
   name: "app",
   mounted() {
     this.initStore();
+
+    this.$ipc.send("hapv", "connect");
+
     this.$ipc.on("err", (event, data) => {
       this.$message({
         type: "error",
