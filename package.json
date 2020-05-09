@@ -11,6 +11,7 @@
   },
   "main": "background.js",
   "dependencies": {
+    "chromedriver": "^81.0.0",
     "core-js": "^3.6.4",
     "element-ui": "^2.4.5",
     "moment": "^2.24.0",
@@ -27,7 +28,7 @@
     "@vue/cli-service": "~4.3.0",
     "@vue/eslint-config-prettier": "^6.0.0",
     "babel-eslint": "^10.1.0",
-    "electron": "^6.0.0",
+    "electron": "^6.1.11",
     "eslint": "^6.7.2",
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-vue": "^6.2.2",

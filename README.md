@@ -41,6 +41,8 @@ cd hapv
 npm install
 ```
 
+> 如果安装失败或者慢，建议使用 `cnpm install`.
+
 ```
 npm start
 ```
