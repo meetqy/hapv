@@ -14,8 +14,8 @@ electron 开发的一个可以播放,下载国内主流视频的播放器。A pl
 
 |              -               |              -               |
 | :--------------------------: | :--------------------------: |
-| <img src='./preview/1.png' > | <img src='./preview/4.png' > |
-| <img src='./preview/2.png' > | <img src='./preview/3.png' > |
+| <img src='./preview/1.jpg' > | <img src='./preview/2.jpg' > |
+| <img src='./preview/3.jpg' > | <img src='./preview/4.jpg' > |
 
 ## 技术栈&插件
 
