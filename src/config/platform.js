@@ -3,6 +3,7 @@ export default [
   {
     site: "https://v.qq.com/",
     name: "腾讯视频",
+    enName: "qq",
     rule: `v\.qq\.com\/x\/cover\/`,
     themeColor: "#ff5c38"
   },
@@ -11,6 +12,7 @@ export default [
   {
     site: "https://www.iqiyi.com/",
     name: "爱奇艺",
+    enName: "iqiyi",
     rule: `iqiyi\.com\/.*?\.html`,
     themeColor: "#00be06"
   },
@@ -19,6 +21,7 @@ export default [
   {
     site: "https://www.youku.com/",
     name: "优酷",
+    enName: "youku",
     rule: `(v\.youku\.com\/v_nextstage\/)|(v\.youku\.com\/v_show\/)`,
     themeColor: "#0d9bff"
   },
@@ -27,12 +30,14 @@ export default [
   {
     site: "https://www.mgtv.com/",
     name: "芒果TV",
+    enName: "mgtv",
     rule: `mgtv\.com\/b`,
     themeColor: "#ff5f00"
   },
   {
     site: "https://www.le.com/",
     name: "乐视TV",
+    enName: "le",
     rule: `le\.com\/ptv\/vplay\/`,
     themeColor: "#ff5f00"
   }
