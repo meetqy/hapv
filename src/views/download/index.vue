@@ -12,8 +12,8 @@
       <div class="download">
         <div
           class="item"
-          :class="{ active: item == 1 }"
-          v-for="item in arr"
+          :class="{ active: index == 0 }"
+          v-for="(item, index) in arr"
           :key="item"
         >
           <div class="left">
@@ -21,13 +21,13 @@
           </div>
           <div class="right">
             <p class="title">
-              <span>斗罗大陆 第00{{ item }}集_1080P在线观看平台_腾讯视频</span>
+              <span>斗罗大陆 第00{{ index }}集_1080P在线观看平台_腾讯视频</span>
               <i
-                v-if="item % 2 == 0"
-                style="font-size:18px"
+                v-if="index % 2 == 0"
+                style="font-size:20px"
                 class="el-icon-download"
               ></i>
-              <i v-else style="font-size:18px" class="el-icon-video-pause"></i>
+              <i v-else style="font-size:20px" class="el-icon-video-pause"></i>
             </p>
             <div style="width: 100%">
               <div class="desc">
