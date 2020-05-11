@@ -10,38 +10,14 @@
     </Header>
     <el-main>
       <div class="download">
-        <div class="item">
+        <div class="item" v-for="item in arr" :key="item">
           <div class="left">
             <img :src="$ico.qq" alt="" />
           </div>
           <div class="right">
-            <p class="title">斗罗大陆 第001集_1080P在线观看平台_腾讯视频</p>
-            <div style="width: 100%">
-              <div class="desc">
-                <div>
-                  <span>4.3GB</span>
-                  <span style="margin-left: 10px">已下载: 0.4%</span>
-                </div>
-                <span>已暂停</span>
-              </div>
-              <div class="progress">
-                <el-progress
-                  :show-text="false"
-                  :percentage="percentage"
-                  :stroke-width="4"
-                  color="#409EFF"
-                ></el-progress>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="item">
-          <div class="left">
-            <img :src="$ico.qq" alt="" />
-          </div>
-          <div class="right">
-            <p class="title">斗罗大陆 第001集_1080P在线观看平台_腾讯视频</p>
+            <p class="title">
+              斗罗大陆 第00{{ item }}集_1080P在线观看平台_腾讯视频
+            </p>
             <div style="width: 100%">
               <div class="desc">
                 <div>
@@ -74,7 +50,8 @@ export default {
   },
   data() {
     return {
-      percentage: 60
+      percentage: 60,
+      arr: [1, 2, 3, 4, 5, 6, 7, 8, 9]
     };
   },
   mounted() {
@@ -84,9 +61,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+::-webkit-scrollbar {
+  width: 5px;
+  background: #e8ebf3;
+}
+::-webkit-scrollbar-thumb {
+  background: #909399;
+  border-radius: 10px;
+}
 .el-main {
   margin-top: 60px;
   padding: 30px 150px !important;
+
+  .download {
+    height: 100%;
+    overflow-y: scroll;
+  }
 
   .item {
     &:not(:first-child) {
