@@ -5,6 +5,7 @@
 
 <script>
 export default {
+  name: "ha-img",
   props: {
     enName: String
   },

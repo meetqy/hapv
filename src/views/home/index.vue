@@ -1,6 +1,6 @@
 <template>
   <el-container>
-    <Header :visible="showHeader" @change="changeStatus">
+    <ha-header :visible="showHeader" @change="changeStatus">
       <template v-slot:left>
         <!-- <el-link type="primary" @click.stop="drawer = true">历史记录</el-link> -->
         <!-- <el-button @click.stop="drawer = !drawer" size="mini">播放记录</el-button> -->
@@ -46,7 +46,7 @@
           </el-button>
         </div>
       </template>
-    </Header>
+    </ha-header>
 
     <!-- <el-drawer
       direction="ltr"
@@ -94,9 +94,8 @@
 </template>
 
 <script>
-import Header from "@/components/header";
-import platform from "../../config/platform";
-import loadingSVG from "../../assets/loading-1.svg";
+import platform from "@/config/platform";
+import loadingSVG from "@/assets/loading-1.svg";
 export default {
   data() {
     return {
@@ -146,10 +145,6 @@ export default {
       console.log("new-window", e.url);
       this.navigateTo(e.url);
     });
-  },
-
-  components: {
-    Header
   },
 
   watch: {

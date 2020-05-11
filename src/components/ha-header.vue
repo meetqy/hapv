@@ -48,6 +48,7 @@
 
 <script>
 export default {
+  name: "ha-header",
   props: {
     visible: {
       type: Boolean,

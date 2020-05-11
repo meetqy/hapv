@@ -1,13 +1,13 @@
 <template>
   <el-container>
-    <Header>
+    <ha-header>
       <template v-slot:left>
         <!-- <h1>Here might be a page title</h1> -->
       </template>
       <template v-slot:right>
         <!-- <h1>Here might be a page title</h1> -->
       </template>
-    </Header>
+    </ha-header>
     <el-main>
       <div class="download">
         <div
@@ -23,7 +23,7 @@
               type="image/svg+xml"
             />
             <img v-else :src="$ico[item]" alt="" /> -->
-            <img-ico :enName="item"></img-ico>
+            <ha-img :enName="item"></ha-img>
           </div>
           <div class="right">
             <p class="title">
@@ -61,12 +61,10 @@
 </template>
 
 <script>
-import Header from "@/components/header";
-import imgIco from "@/components/img-ico";
+import haImg from "@/components/ha-img";
 export default {
   components: {
-    Header,
-    imgIco
+    haImg
   },
   data() {
     return {

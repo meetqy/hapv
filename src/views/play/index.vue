@@ -1,6 +1,6 @@
 <template>
   <el-container>
-    <Header>
+    <ha-header>
       <template v-slot:left>
         <el-button @click="drawer = !drawer" size="mini">播放记录</el-button>
         <div style="margin-left: 20px">
@@ -25,7 +25,7 @@
           </el-option>
         </el-select>
       </template>
-    </Header>
+    </ha-header>
 
     <el-drawer
       direction="ltr"
@@ -73,7 +73,6 @@
 </template>
 
 <script>
-import Header from "@/components/header";
 import notData from "@/assets/notdata.gif";
 export default {
   data() {
@@ -82,9 +81,7 @@ export default {
       notData
     };
   },
-  components: {
-    Header
-  },
+  components: {},
 
   mounted() {
     let { query } = this.$route;

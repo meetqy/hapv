@@ -1,13 +1,13 @@
 <template>
   <el-container>
-    <Header>
+    <ha-header>
       <template v-slot:left>
         <h1>Here might be a page title</h1>
       </template>
       <template v-slot:right>
         <h1>Here might be a page title</h1>
       </template>
-    </Header>
+    </ha-header>
     <el-main>
       done
     </el-main>
@@ -15,12 +15,7 @@
 </template>
 
 <script>
-import Header from "@/components/header";
-export default {
-  components: {
-    Header
-  }
-};
+export default {};
 </script>
 
 <style></style>
