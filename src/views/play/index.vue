@@ -73,12 +73,11 @@
 </template>
 
 <script>
-import notData from "@/assets/notdata.gif";
 export default {
   data() {
     return {
       drawer: false, // 播放记录
-      notData
+      notData: require("@/assets/notdata.gif")
     };
   },
   components: {},

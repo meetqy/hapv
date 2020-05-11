@@ -17,13 +17,7 @@
           :key="item"
         >
           <div class="left">
-            <!-- <embed
-              v-if="isSvg($ico[item])"
-              :src="$ico[item]"
-              type="image/svg+xml"
-            />
-            <img v-else :src="$ico[item]" alt="" /> -->
-            <ha-img :enName="item"></ha-img>
+            <ha-img :src="$ico[item]"></ha-img>
           </div>
           <div class="right">
             <p class="title">
@@ -61,11 +55,7 @@
 </template>
 
 <script>
-import haImg from "@/components/ha-img";
 export default {
-  components: {
-    haImg
-  },
   data() {
     return {
       percentage: 60,

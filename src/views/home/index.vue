@@ -86,7 +86,10 @@
 
     <el-main :style="{ 'margin-top': showHeader ? '60px' : 0 }">
       <div id="loading" v-if="pageLoading">
-        <embed :src="loadingSVG" style="background: transparent" />
+        <ha-img
+          :src="loadingSVG"
+          style="background: transparent;width:200px;height:200px"
+        ></ha-img>
       </div>
       <webview :src="nowsite" id="webview"></webview>
     </el-main>

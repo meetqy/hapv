@@ -1,24 +1,20 @@
 <template>
-  <embed v-if="isSvg($ico[enName])" :src="$ico[enName]" type="image/svg+xml" />
-  <img v-else :src="$ico[enName]" alt="" />
+  <embed :style="style" v-if="isSvg(src)" :src="src" type="image/svg+xml" />
+  <img :style="style" v-else :src="src" alt="" />
 </template>
 
 <script>
 export default {
   name: "ha-img",
   props: {
-    enName: String
+    src: String,
+    style: {
+      type: String,
+      default: "width: 36px;height:36px"
+    }
   },
   methods: {
     isSvg: url => /\.svg$/.test(url)
   }
 };
 </script>
-
-<style lang="scss" scoped>
-embed,
-img {
-  width: 36px;
-  height: 36px;
-}
-</style>

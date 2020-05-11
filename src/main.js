@@ -6,10 +6,12 @@ import { ipcRenderer } from "electron";
 import moment from "moment";
 import "./plugins/element.js";
 import HaHeader from "./components/ha-header.vue";
+import HaImg from "./components/ha-img.vue";
 
 Vue.prototype.$ipc = ipcRenderer;
 Vue.prototype.$moment = moment;
 Vue.component("ha-header", HaHeader);
+Vue.component("ha-img", HaImg);
 
 Vue.prototype.$ico = {
   qq: require("@/assets/ico/qq.ico"),
