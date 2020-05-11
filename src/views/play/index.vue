@@ -3,6 +3,11 @@
     <Header>
       <template v-slot:left>
         <el-button @click="drawer = !drawer" size="mini">播放记录</el-button>
+        <div style="margin-left: 20px">
+          <el-button type="primary" icon="el-icon-plus" size="mini">
+            加入下载
+          </el-button>
+        </div>
       </template>
       <template v-slot:right>
         <el-select
