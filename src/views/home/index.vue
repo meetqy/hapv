@@ -95,7 +95,6 @@
 
 <script>
 import platform from "@/config/platform";
-import loadingSVG from "@/assets/loading-1.svg";
 export default {
   data() {
     return {
@@ -105,7 +104,7 @@ export default {
       webview: "", // webview实例
       pageLoading: true,
       playBtn: false,
-      loadingSVG,
+      loadingSVG: require("@/assets/loading-1.svg"),
       timeout: ""
     };
   },
