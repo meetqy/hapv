@@ -10,13 +10,29 @@
     </Header>
     <el-main>
       <div class="download">
-        <div class="item" v-for="item in arr" :key="item">
+        <div
+          class="item"
+          :class="{ active: item == 1 }"
+          v-for="item in arr"
+          :key="item"
+        >
           <div class="left">
-            <img :src="$ico.qq" alt="" />
+            <embed
+              v-if="isSvg($ico[item])"
+              :src="$ico[item]"
+              type="image/svg+xml"
+            />
+            <img v-else :src="$ico[item]" alt="" />
           </div>
           <div class="right">
             <p class="title">
-              斗罗大陆 第00{{ item }}集_1080P在线观看平台_腾讯视频
+              <span>斗罗大陆 第00{{ item }}集_1080P在线观看平台_腾讯视频</span>
+              <i
+                v-if="item % 2 == 0"
+                style="font-size:18px"
+                class="el-icon-download"
+              ></i>
+              <i v-else style="font-size:18px" class="el-icon-video-pause"></i>
             </p>
             <div style="width: 100%">
               <div class="desc">
@@ -24,7 +40,8 @@
                   <span>4.3GB</span>
                   <span style="margin-left: 10px">已下载: 0.4%</span>
                 </div>
-                <span>已暂停</span>
+                <span v-if="item % 2 == 0">已暂停</span>
+                <span v-else>300k/s</span>
               </div>
               <div class="progress">
                 <el-progress
@@ -51,11 +68,16 @@ export default {
   data() {
     return {
       percentage: 60,
-      arr: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+      arr: ["qq", "iqiyi", "le", "youku", "mgtv"]
     };
   },
   mounted() {
     // console.log(this.$ico.qq);
+  },
+  methods: {
+    isSvg(url) {
+      return /\.svg$/.test(url);
+    }
   }
 };
 </script>
@@ -69,16 +91,22 @@ export default {
   background: #909399;
   border-radius: 10px;
 }
+
 .el-main {
   margin-top: 60px;
-  padding: 30px 150px !important;
+  padding: 0 200px !important;
+  overflow-y: scroll !important;
 
   .download {
-    height: 100%;
-    overflow-y: scroll;
+    padding: 30px 0;
+  }
+
+  .active {
+    background-color: rgb(217, 236, 255) !important;
   }
 
   .item {
+    border-radius: 4px;
     &:not(:first-child) {
       margin-top: 20px;
     }
@@ -97,7 +125,8 @@ export default {
       display: flex;
       align-items: center;
       justify-content: center;
-      img {
+      img,
+      embed {
         width: 36px;
         height: 36px;
       }

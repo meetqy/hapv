@@ -13,7 +13,7 @@ Vue.prototype.$ico = {
   qq: require("@/assets/ico/qq.ico"),
   iqiyi: require("@/assets/ico/iqiyi.png"),
   le: require("@/assets/ico/le.png"),
-  mgtv: require("@/assets/ico/mgtv.ico"),
+  mgtv: require("@/assets/ico/mgtv.svg"),
   youku: require("@/assets/ico/youku.png")
 };
 
