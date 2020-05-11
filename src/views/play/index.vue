@@ -167,8 +167,8 @@ export default {
 
 .el-container {
   /deep/ .el-drawer.ltr {
-    height: calc(100% - 60px);
-    margin-top: 60px;
+    height: 100%;
+    // margin-top: 60px;
   }
 }
 
