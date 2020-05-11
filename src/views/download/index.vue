@@ -17,12 +17,13 @@
           :key="item"
         >
           <div class="left">
-            <embed
+            <!-- <embed
               v-if="isSvg($ico[item])"
               :src="$ico[item]"
               type="image/svg+xml"
             />
-            <img v-else :src="$ico[item]" alt="" />
+            <img v-else :src="$ico[item]" alt="" /> -->
+            <img-ico :enName="item"></img-ico>
           </div>
           <div class="right">
             <p class="title">
@@ -61,9 +62,11 @@
 
 <script>
 import Header from "@/components/header";
+import imgIco from "@/components/img-ico";
 export default {
   components: {
-    Header
+    Header,
+    imgIco
   },
   data() {
     return {
