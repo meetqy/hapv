@@ -88,7 +88,7 @@
       <div id="loading" v-if="pageLoading">
         <ha-img
           :src="loadingSVG"
-          style="background: transparent;width:200px;height:200px"
+          sty="background: transparent;width:200px;height:200px"
         ></ha-img>
       </div>
       <webview :src="nowsite" id="webview"></webview>
